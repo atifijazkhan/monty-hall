@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Monty Hall Problem</title>
+
+  <!-- Marked.js for Markdown rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- MathJax for LaTeX math rendering -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+  <!-- GitHub-style syntax highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11"></script>
+
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #24292e;
+      --heading-color: #1a202c;
+      --link-color: #0366d6;
+      --code-bg: #f6f8fa;
+      --border-color: #e1e4e8;
+      --blockquote-color: #6a737d;
+      --table-border: #dfe2e5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0d1117;
+        --text-color: #c9d1d9;
+        --heading-color: #f0f6fc;
+        --link-color: #58a6ff;
+        --code-bg: #161b22;
+        --border-color: #30363d;
+        --blockquote-color: #8b949e;
+        --table-border: #30363d;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 20px;
+    }
+
+    #content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 40px;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--heading-color);
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      padding-bottom: 0.3em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    h2 {
+      font-size: 1.6em;
+      padding-bottom: 0.3em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    h3 {
+      font-size: 1.3em;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.9em;
+      background-color: var(--code-bg);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    pre code {
+      padding: 0;
+      background: none;
+    }
+
+    blockquote {
+      margin: 1em 0;
+      padding: 0.5em 1em;
+      border-left: 4px solid var(--border-color);
+      color: var(--blockquote-color);
+      font-style: italic;
+    }
+
+    blockquote p {
+      margin: 0.5em 0;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid var(--border-color);
+      margin: 2em 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1em 0;
+      overflow-x: auto;
+      display: block;
+    }
+
+    th, td {
+      border: 1px solid var(--table-border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--code-bg);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--code-bg);
+    }
+
+    ul, ol {
+      padding-left: 2em;
+      margin: 1em 0;
+    }
+
+    li {
+      margin: 0.3em 0;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* MathJax display equations */
+    .MathJax {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    /* Loading indicator */
+    #loading {
+      text-align: center;
+      padding: 4em;
+      color: var(--blockquote-color);
+    }
+
+    #loading::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-color);
+      border-top-color: var(--link-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      #content {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <div id="loading">Loading</div>
+  </div>
+
+  <script>
+    // Configure marked with syntax highlighting
+    marked.setOptions({
+      highlight: function(code, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          return hljs.highlight(code, { language: lang }).value;
+        }
+        return hljs.highlightAuto(code).value;
+      },
+      breaks: false,
+      gfm: true
+    });
+
+    // Fetch and render the markdown file
+    async function loadMarkdown() {
+      try {
+        const response = await fetch('monty-hall-blog.md');
+        if (!response.ok) {
+          throw new Error(`Failed to load: ${response.status}`);
+        }
+        const markdown = await response.text();
+
+        // Render markdown to HTML
+        const html = marked.parse(markdown);
+        document.getElementById('content').innerHTML = html;
+
+        // Trigger MathJax to process the new content
+        if (window.MathJax) {
+          MathJax.typesetPromise();
+        }
+      } catch (error) {
+        document.getElementById('content').innerHTML = `
+          <h1>Error Loading Content</h1>
+          <p>Could not load the markdown file: ${error.message}</p>
+          <p>Make sure you're running this through a web server (e.g., <code>python -m http.server</code>).</p>
+        `;
+      }
+    }
+
+    // Load on page ready
+    document.addEventListener('DOMContentLoaded', loadMarkdown);
+  </script>
+</body>
+</html>
