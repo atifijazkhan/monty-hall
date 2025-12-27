@@ -1044,72 +1044,279 @@
     }
 
     /* =====================================================
-       TAB 3: BLOG
+       TAB 3: BLOG - ACCORDION WITH STICKY TOC
        ===================================================== */
 
-    .blog-container {
-      max-width: 800px;
-      margin: 0 auto;
+    /* Main Layout: TOC sidebar + content area */
+    .blog-layout {
+      display: flex;
+      gap: 25px;
+      max-height: calc(100vh - 200px);
+    }
+
+    /* Sticky TOC Sidebar */
+    .blog-toc {
+      width: 220px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      max-height: calc(100vh - 220px);
+      overflow-y: auto;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .toc-header {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-progress-bar {
+      height: 3px;
+      background: var(--bg-primary);
+      border-radius: 2px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .toc-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      width: 0%;
+      transition: width 0.2s ease;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 15px 0;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-bottom: 4px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-left: 2px solid transparent;
+    }
+
+    .toc-item:hover {
+      background: rgba(233, 69, 96, 0.1);
+      color: var(--text-primary);
+    }
+
+    .toc-item.active {
+      background: rgba(233, 69, 96, 0.15);
+      color: var(--accent);
+      border-left-color: var(--accent);
+      font-weight: 500;
+    }
+
+    .toc-item.expanded {
+      color: var(--success);
+    }
+
+    .toc-number {
+      font-size: 0.65rem;
+      opacity: 0.6;
+      width: 18px;
+    }
+
+    .toc-actions {
+      display: flex;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .toc-btn {
+      flex: 1;
+      padding: 8px 10px;
+      font-size: 0.7rem;
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .toc-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* Main content area with internal scroll */
+    .blog-main {
+      flex: 1;
+      min-width: 0;
+      max-height: calc(100vh - 220px);
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    /* Hero Section */
+    .blog-hero {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 25px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      border: 1px solid var(--border);
     }
 
     .blog-hero-image {
+      max-width: 350px;
       width: 100%;
-      max-width: 500px;
-      display: block;
-      margin: 0 auto 25px;
-      border-radius: 12px;
+      border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
-    .blog-content {
+    .blog-hero-title {
+      margin-top: 18px;
+      font-size: 1.4rem;
+      color: var(--accent);
+    }
+
+    .blog-hero-subtitle {
+      color: var(--text-secondary);
+      font-style: italic;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+
+    /* Accordion Sections */
+    .blog-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .blog-section {
       background: var(--bg-secondary);
-      padding: 35px;
       border-radius: 12px;
       border: 1px solid var(--border);
-      line-height: 1.75;
-      max-height: 65vh;
-      overflow-y: auto;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
     }
 
-    .blog-content h1 {
+    .blog-section.expanded {
+      border-color: var(--accent);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s ease;
+    }
+
+    .section-header:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .section-number {
+      width: 32px;
+      height: 32px;
+      background: var(--bg-card);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
       color: var(--accent);
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 12px;
+      margin-right: 15px;
+      flex-shrink: 0;
     }
 
-    .blog-content h2 {
-      color: var(--text-primary);
-      font-size: 1.4rem;
-      margin-top: 35px;
-      margin-bottom: 15px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
+    .blog-section.expanded .section-number {
+      background: var(--accent);
+      color: white;
     }
 
-    .blog-content h3 {
+    .section-title {
+      flex: 1;
+      font-size: 0.95rem;
+      font-weight: 600;
       color: var(--text-primary);
-      font-size: 1.15rem;
+      margin: 0;
+    }
+
+    .section-chevron {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: transform 0.3s ease;
+    }
+
+    .blog-section.expanded .section-chevron {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
+    .section-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out, padding 0.3s ease;
+      padding: 0 20px;
+      line-height: 1.75;
+    }
+
+    .blog-section.expanded .section-content {
+      max-height: 8000px;
+      padding: 0 20px 25px;
+    }
+
+    /* Section Content Styling (markdown rendered) */
+    .section-content h3 {
+      color: var(--text-primary);
+      font-size: 1.1rem;
       margin-top: 25px;
       margin-bottom: 10px;
     }
 
-    .blog-content p {
+    .section-content h4 {
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .section-content p {
       margin-bottom: 15px;
       color: var(--text-primary);
     }
 
-    .blog-content em {
+    .section-content em {
       font-style: italic;
     }
 
-    .blog-content strong {
+    .section-content strong {
       color: var(--success);
       font-weight: 600;
     }
 
-    .blog-content blockquote {
+    .section-content blockquote {
       border-left: 4px solid var(--accent);
       margin: 20px 0;
       padding: 12px 20px;
@@ -1119,38 +1326,38 @@
       color: var(--text-secondary);
     }
 
-    .blog-content blockquote p {
+    .section-content blockquote p {
       margin-bottom: 8px;
     }
 
-    .blog-content blockquote p:last-child {
+    .section-content blockquote p:last-child {
       margin-bottom: 0;
     }
 
-    .blog-content table {
+    .section-content table {
       width: 100%;
       border-collapse: collapse;
       margin: 20px 0;
     }
 
-    .blog-content th,
-    .blog-content td {
+    .section-content th,
+    .section-content td {
       padding: 10px 12px;
       border: 1px solid var(--border);
       text-align: left;
     }
 
-    .blog-content th {
+    .section-content th {
       background: var(--bg-card);
       color: var(--accent);
       font-weight: 600;
     }
 
-    .blog-content tr:nth-child(even) {
+    .section-content tr:nth-child(even) {
       background: rgba(255,255,255,0.02);
     }
 
-    .blog-content code {
+    .section-content code {
       background: var(--bg-primary);
       padding: 2px 6px;
       border-radius: 4px;
@@ -1158,7 +1365,7 @@
       font-size: 0.9em;
     }
 
-    .blog-content pre {
+    .section-content pre {
       background: var(--bg-primary);
       padding: 18px;
       border-radius: 8px;
@@ -1166,55 +1373,60 @@
       margin: 20px 0;
     }
 
-    .blog-content pre code {
+    .section-content pre code {
       padding: 0;
       background: transparent;
     }
 
-    .blog-content ul,
-    .blog-content ol {
+    .section-content ul,
+    .section-content ol {
       margin: 15px 0;
       padding-left: 25px;
     }
 
-    .blog-content li {
+    .section-content li {
       margin-bottom: 8px;
     }
 
-    .blog-content hr {
+    .section-content hr {
       border: none;
       border-top: 1px solid var(--border);
-      margin: 30px 0;
+      margin: 25px 0;
     }
 
-    .blog-content a {
+    .section-content a {
       color: var(--accent);
       text-decoration: none;
     }
 
-    .blog-content a:hover {
+    .section-content a:hover {
       text-decoration: underline;
     }
 
-    /* Blog scrollbar */
-    .blog-content::-webkit-scrollbar {
-      width: 8px;
+    /* Scrollbar styling */
+    .blog-main::-webkit-scrollbar,
+    .blog-toc::-webkit-scrollbar {
+      width: 6px;
     }
 
-    .blog-content::-webkit-scrollbar-track {
+    .blog-main::-webkit-scrollbar-track,
+    .blog-toc::-webkit-scrollbar-track {
       background: var(--bg-primary);
-      border-radius: 4px;
+      border-radius: 3px;
     }
 
-    .blog-content::-webkit-scrollbar-thumb {
+    .blog-main::-webkit-scrollbar-thumb,
+    .blog-toc::-webkit-scrollbar-thumb {
       background: var(--border);
-      border-radius: 4px;
+      border-radius: 3px;
     }
 
-    .blog-content::-webkit-scrollbar-thumb:hover {
+    .blog-main::-webkit-scrollbar-thumb:hover,
+    .blog-toc::-webkit-scrollbar-thumb:hover {
       background: var(--accent);
     }
 
+    /* Blog loading state */
     .blog-loading {
       text-align: center;
       padding: 50px;
@@ -1236,6 +1448,96 @@
 
     @keyframes spin {
       to { transform: rotate(360deg); }
+    }
+
+    .blog-error {
+      text-align: center;
+      padding: 50px;
+      color: var(--accent);
+    }
+
+    /* Blog Mobile Responsive */
+    @media (max-width: 900px) {
+      .blog-layout {
+        flex-direction: column;
+        max-height: none;
+      }
+
+      .blog-toc {
+        width: 100%;
+        position: relative;
+        max-height: none;
+        margin-bottom: 20px;
+        padding: 15px;
+      }
+
+      .toc-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .toc-item {
+        padding: 6px 12px;
+        border-radius: 20px;
+        border-left: none;
+        background: var(--bg-card);
+        margin-bottom: 0;
+      }
+
+      .toc-item.active {
+        background: var(--accent);
+        color: white;
+      }
+
+      .toc-number {
+        display: none;
+      }
+
+      .toc-actions {
+        display: none;
+      }
+
+      .blog-main {
+        max-height: 60vh;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .blog-hero {
+        padding: 20px;
+      }
+
+      .blog-hero-image {
+        max-width: 100%;
+      }
+
+      .blog-hero-title {
+        font-size: 1.2rem;
+      }
+
+      .section-header {
+        padding: 14px 16px;
+      }
+
+      .section-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
+        margin-right: 12px;
+      }
+
+      .section-title {
+        font-size: 0.85rem;
+      }
+
+      .section-content {
+        padding: 0 16px;
+      }
+
+      .blog-section.expanded .section-content {
+        padding: 0 16px 20px;
+      }
     }
 
     /* =====================================================
@@ -1463,11 +1765,8 @@
 
       <!-- ==================== TAB 3: BLOG ==================== -->
       <section id="blog-tab" class="tab-panel">
-        <div class="blog-container">
-          <img src="monty-hall.png" alt="Monty Hall Problem Infographic" class="blog-hero-image">
-          <article class="blog-content" id="blogContent">
-            <div class="blog-loading">Loading blog content</div>
-          </article>
+        <div id="blogContent">
+          <div class="blog-loading">Loading blog content</div>
         </div>
       </section>
     </main>
@@ -2126,18 +2425,54 @@
     }
 
     // ============================================================================
-    // TAB 3: BLOG
+    // TAB 3: BLOG - ACCORDION WITH TOC
     // ============================================================================
 
-    async function loadBlogContent() {
-      const blogContainer = document.getElementById('blogContent');
+    const SECTION_CONFIG = [
+      { id: 'intro', title: 'Introduction', h2: 'Introduction' },
+      { id: 'problem', title: 'Test Yourself', h2: 'The Problem: Test Yourself First' },
+      { id: 'answer', title: 'The Answer', h2: 'The Answer' },
+      { id: 'rules', title: 'The Rules', h2: 'The Rules (Precise Statement)' },
+      { id: 'intuitive', title: 'Intuitive Explanations', h2: 'Part I: Intuitive Explanations' },
+      { id: 'wrong', title: 'Wrong Arguments', h2: 'Part II: Common Wrong Arguments' },
+      { id: 'proof', title: 'Mathematical Proof', h2: 'Part III: Mathematical Proof' },
+      { id: 'shuffling', title: 'Shuffling Variant', h2: 'Part IV: The Shuffling Variant' },
+      { id: 'ndoor', title: 'N-Door Problem', h2: 'Part V: The N-Door Generalization' },
+      { id: 'conclusion', title: 'Conclusion', h2: 'Conclusion' },
+      { id: 'summary', title: 'Summary', h2: 'Summary' }
+    ];
 
-      try {
-        const response = await fetch('monty-hall-blog.md');
-        if (!response.ok) throw new Error('Failed to load blog');
+    const BlogModule = {
+      currentSection: null,
 
-        const markdown = await response.text();
+      async init() {
+        const blogContainer = document.getElementById('blogContent');
 
+        try {
+          const response = await fetch('monty-hall-blog.md');
+          if (!response.ok) throw new Error('Failed to load blog');
+
+          const markdown = await response.text();
+          this.parseAndRender(markdown, blogContainer);
+          this.setupEventListeners();
+
+          // Auto-expand first section
+          this.toggleSection('intro', true);
+
+        } catch (error) {
+          blogContainer.innerHTML = `
+            <div class="blog-error">
+              <p>Failed to load blog content: ${error.message}</p>
+              <p style="margin-top: 10px; font-size: 0.85rem;">
+                Make sure you're running this through a web server<br>
+                (e.g., <code>python -m http.server</code>)
+              </p>
+            </div>
+          `;
+        }
+      },
+
+      parseAndRender(markdown, container) {
         // Configure marked
         marked.setOptions({
           highlight: function(code, lang) {
@@ -2150,26 +2485,227 @@
           gfm: true
         });
 
-        // Parse and render
-        const html = marked.parse(markdown);
-        blogContainer.innerHTML = html;
+        // Split markdown by H2 headers
+        const sections = this.splitByH2(markdown);
 
-        // Trigger MathJax
-        if (window.MathJax && MathJax.typesetPromise) {
-          MathJax.typesetPromise([blogContainer]);
-        }
+        // Generate TOC HTML
+        const tocHTML = this.generateTOC();
 
-      } catch (error) {
-        blogContainer.innerHTML = `
-          <div class="empty-state">
-            <p>Failed to load blog content: ${error.message}</p>
-            <p style="margin-top: 10px; font-size: 0.85rem;">
-              Make sure you're running this through a web server<br>
-              (e.g., <code>python -m http.server</code>)
-            </p>
+        // Generate accordion HTML
+        const accordionHTML = this.generateAccordion(sections);
+
+        // Inject into DOM
+        container.innerHTML = `
+          <div class="blog-layout">
+            <nav class="blog-toc">
+              <div class="toc-header">Contents</div>
+              <div class="toc-progress-bar">
+                <div class="toc-progress-fill" id="tocProgress"></div>
+              </div>
+              <ul class="toc-list">${tocHTML}</ul>
+              <div class="toc-actions">
+                <button class="toc-btn" id="expandAllBtn">Expand All</button>
+                <button class="toc-btn" id="collapseAllBtn">Collapse All</button>
+              </div>
+            </nav>
+            <main class="blog-main" id="blogMain">
+              <div class="blog-hero">
+                <img src="monty-hall.png" alt="Monty Hall Problem" class="blog-hero-image">
+                <h1 class="blog-hero-title">The Monty Hall Problem</h1>
+                <p class="blog-hero-subtitle">Why You Should Always Switch</p>
+              </div>
+              <div class="blog-sections">${accordionHTML}</div>
+            </main>
           </div>
         `;
+      },
+
+      splitByH2(markdown) {
+        const sections = {};
+
+        // Split by "## " pattern at start of line
+        const parts = markdown.split(/(?=^## )/m);
+
+        parts.forEach(part => {
+          // Match the H2 title
+          const match = part.match(/^## (.+?)(?:\r?\n|$)/m);
+          if (match) {
+            const h2Title = match[1].trim();
+            const config = SECTION_CONFIG.find(s => s.h2 === h2Title);
+            if (config) {
+              // Get content after the H2 line
+              const content = part.replace(/^## .+?\r?\n/, '').trim();
+              sections[config.id] = {
+                title: config.title,
+                fullTitle: h2Title,
+                content: marked.parse(content)
+              };
+            }
+          }
+        });
+
+        return sections;
+      },
+
+      generateTOC() {
+        return SECTION_CONFIG.map((section, index) => `
+          <li class="toc-item" data-section="${section.id}">
+            <span class="toc-number">${String(index + 1).padStart(2, '0')}</span>
+            ${section.title}
+          </li>
+        `).join('');
+      },
+
+      generateAccordion(sections) {
+        return SECTION_CONFIG.map((config, index) => {
+          const section = sections[config.id] || { content: '', fullTitle: config.title };
+          return `
+            <article class="blog-section" data-section="${config.id}" id="section-${config.id}">
+              <header class="section-header">
+                <span class="section-number">${String(index + 1).padStart(2, '0')}</span>
+                <h2 class="section-title">${section.fullTitle || config.title}</h2>
+                <span class="section-chevron">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 11L3 6h10l-5 5z"/>
+                  </svg>
+                </span>
+              </header>
+              <div class="section-content">
+                ${section.content}
+              </div>
+            </article>
+          `;
+        }).join('');
+      },
+
+      setupEventListeners() {
+        // Section header clicks
+        document.querySelectorAll('.section-header').forEach(header => {
+          header.addEventListener('click', () => {
+            const section = header.closest('.blog-section');
+            const sectionId = section.dataset.section;
+            this.toggleSection(sectionId);
+          });
+        });
+
+        // TOC item clicks
+        document.querySelectorAll('.toc-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const sectionId = item.dataset.section;
+            this.scrollToSection(sectionId);
+          });
+        });
+
+        // Expand/Collapse All buttons
+        document.getElementById('expandAllBtn').addEventListener('click', () => this.expandAll());
+        document.getElementById('collapseAllBtn').addEventListener('click', () => this.collapseAll());
+
+        // Scroll tracking for progress bar
+        const blogMain = document.getElementById('blogMain');
+        if (blogMain) {
+          blogMain.addEventListener('scroll', () => {
+            this.updateProgress(blogMain);
+            this.updateVisibleSection(blogMain);
+          });
+        }
+      },
+
+      toggleSection(sectionId, forceExpand = null) {
+        const section = document.querySelector(`.blog-section[data-section="${sectionId}"]`);
+        const tocItem = document.querySelector(`.toc-item[data-section="${sectionId}"]`);
+
+        if (!section) return;
+
+        const shouldExpand = forceExpand !== null ? forceExpand : !section.classList.contains('expanded');
+
+        if (shouldExpand) {
+          section.classList.add('expanded');
+          tocItem?.classList.add('expanded');
+          this.currentSection = sectionId;
+
+          // Re-render MathJax for this section
+          this.renderMathInSection(section);
+        } else {
+          section.classList.remove('expanded');
+          tocItem?.classList.remove('expanded');
+        }
+
+        this.updateTOCHighlight(sectionId);
+      },
+
+      scrollToSection(sectionId) {
+        const section = document.getElementById(`section-${sectionId}`);
+        const blogMain = document.getElementById('blogMain');
+
+        if (!section || !blogMain) return;
+
+        // Expand the section first
+        this.toggleSection(sectionId, true);
+
+        // Smooth scroll within the container
+        const sectionTop = section.offsetTop - blogMain.offsetTop;
+        blogMain.scrollTo({
+          top: sectionTop - 20,
+          behavior: 'smooth'
+        });
+      },
+
+      expandAll() {
+        SECTION_CONFIG.forEach(config => {
+          this.toggleSection(config.id, true);
+        });
+      },
+
+      collapseAll() {
+        SECTION_CONFIG.forEach(config => {
+          this.toggleSection(config.id, false);
+        });
+      },
+
+      updateProgress(blogMain) {
+        const scrollPct = (blogMain.scrollTop / (blogMain.scrollHeight - blogMain.clientHeight)) * 100;
+        const progressBar = document.getElementById('tocProgress');
+        if (progressBar) {
+          progressBar.style.width = Math.min(Math.max(scrollPct, 0), 100) + '%';
+        }
+      },
+
+      updateVisibleSection(blogMain) {
+        const sections = document.querySelectorAll('.blog-section');
+        let currentVisible = null;
+
+        sections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          const containerRect = blogMain.getBoundingClientRect();
+
+          if (rect.top <= containerRect.top + 100 && rect.bottom > containerRect.top) {
+            currentVisible = section.dataset.section;
+          }
+        });
+
+        if (currentVisible) {
+          this.updateTOCHighlight(currentVisible);
+        }
+      },
+
+      updateTOCHighlight(sectionId) {
+        document.querySelectorAll('.toc-item').forEach(item => {
+          item.classList.toggle('active', item.dataset.section === sectionId);
+        });
+      },
+
+      renderMathInSection(section) {
+        if (window.MathJax && MathJax.typesetPromise) {
+          // Clear existing and re-typeset
+          MathJax.typesetClear([section]);
+          MathJax.typesetPromise([section]).catch(err => console.warn('MathJax error:', err));
+        }
       }
+    };
+
+    // Wrapper function for backward compatibility
+    function loadBlogContent() {
+      BlogModule.init();
     }
 
     // ============================================================================
