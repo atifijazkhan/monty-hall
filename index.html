@@ -2641,15 +2641,30 @@
         // Disable scroll tracking during programmatic scroll
         this.isScrolling = true;
 
-        // Wait for expansion animation, then scroll
-        setTimeout(() => {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Use requestAnimationFrame to ensure DOM has updated after expansion
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            // Calculate scroll position using getBoundingClientRect for accuracy
+            const containerRect = blogMain.getBoundingClientRect();
+            const sectionRect = section.getBoundingClientRect();
 
-          // Re-enable scroll tracking after scroll completes
-          setTimeout(() => {
-            this.isScrolling = false;
-          }, 500);
-        }, 50);
+            // How far the section is from the top of the visible container
+            const distanceFromTop = sectionRect.top - containerRect.top;
+
+            // New scroll position = current scroll + distance - small padding
+            const targetScroll = blogMain.scrollTop + distanceFromTop - 10;
+
+            blogMain.scrollTo({
+              top: Math.max(0, targetScroll),
+              behavior: 'smooth'
+            });
+
+            // Re-enable scroll tracking after scroll completes
+            setTimeout(() => {
+              this.isScrolling = false;
+            }, 600);
+          });
+        });
       },
 
       expandAll() {
