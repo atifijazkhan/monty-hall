@@ -1463,22 +1463,41 @@
         width: 100%;
         position: relative;
         max-height: none;
-        margin-bottom: 20px;
-        padding: 15px;
+        margin-bottom: 12px;
+        padding: 12px;
+        border-radius: 8px;
+      }
+
+      .toc-header {
+        display: none;
+      }
+
+      .toc-progress-bar {
+        display: none;
       }
 
       .toc-list {
         display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .toc-list::-webkit-scrollbar {
+        display: none;
       }
 
       .toc-item {
-        padding: 6px 12px;
+        padding: 8px 14px;
         border-radius: 20px;
         border-left: none;
         background: var(--bg-card);
         margin-bottom: 0;
+        white-space: nowrap;
+        flex-shrink: 0;
       }
 
       .toc-item.active {
@@ -1495,44 +1514,95 @@
       }
 
       .blog-main {
-        max-height: 60vh;
+        max-height: none;
+        flex: 1;
+      }
+
+      .blog-hero {
+        padding: 15px;
+        margin-bottom: 12px;
+      }
+
+      .blog-hero-image {
+        max-width: 200px;
+      }
+
+      .blog-hero-title {
+        font-size: 1.1rem;
+        margin-top: 12px;
+      }
+
+      .blog-hero-subtitle {
+        font-size: 0.8rem;
+      }
+
+      .blog-sections {
+        gap: 8px;
       }
     }
 
     @media (max-width: 600px) {
+      .blog-toc {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .toc-item {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+      }
+
       .blog-hero {
-        padding: 20px;
+        padding: 12px;
       }
 
       .blog-hero-image {
-        max-width: 100%;
+        max-width: 150px;
       }
 
       .blog-hero-title {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
 
       .section-header {
-        padding: 14px 16px;
+        padding: 12px 14px;
       }
 
       .section-number {
-        width: 28px;
-        height: 28px;
-        font-size: 0.7rem;
-        margin-right: 12px;
+        width: 26px;
+        height: 26px;
+        font-size: 0.65rem;
+        margin-right: 10px;
       }
 
       .section-title {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
       }
 
       .section-content {
-        padding: 0 16px;
+        padding: 0 14px;
+        font-size: 0.9rem;
       }
 
       .blog-section.expanded .section-content {
-        padding: 0 16px 20px;
+        padding: 0 14px 18px;
+      }
+
+      .section-content h3 {
+        font-size: 1rem;
+      }
+
+      .section-content h4 {
+        font-size: 0.9rem;
+      }
+
+      .section-content table {
+        font-size: 0.8rem;
+      }
+
+      .section-content th,
+      .section-content td {
+        padding: 6px 8px;
       }
     }
 
