@@ -483,6 +483,15 @@
       margin-top: 15px;
     }
 
+    .comparison-title {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
     .comparison-label {
       display: flex;
       justify-content: space-between;
@@ -1772,6 +1781,7 @@
               </div>
             </div>
             <div class="stats-comparison" id="statsComparison">
+              <div class="comparison-title">Win Distribution</div>
               <div class="comparison-label">
                 <span class="switch-label">Switch: <span id="switchPct">--%</span></span>
                 <span class="stay-label">Stay: <span id="stayPct">--%</span></span>
@@ -2044,29 +2054,25 @@
       document.getElementById('statStayWins').textContent =
         `${game.stats.stayWins}/${game.stats.stayTotal}`;
 
-      // Calculate percentages
-      const switchPct = game.stats.switchTotal > 0
-        ? Math.round((game.stats.switchWins / game.stats.switchTotal) * 100)
-        : 0;
-      const stayPct = game.stats.stayTotal > 0
-        ? Math.round((game.stats.stayWins / game.stats.stayTotal) * 100)
-        : 0;
+      // Calculate win distribution (how wins are split between strategies)
+      const totalWins = game.stats.switchWins + game.stats.stayWins;
+      const switchWinPct = totalWins > 0
+        ? Math.round((game.stats.switchWins / totalWins) * 100)
+        : 50;
+      const stayWinPct = totalWins > 0
+        ? 100 - switchWinPct
+        : 50;
 
       document.getElementById('switchPct').textContent =
-        game.stats.switchTotal > 0 ? switchPct + '%' : '--%';
+        totalWins > 0 ? switchWinPct + '%' : '--%';
       document.getElementById('stayPct').textContent =
-        game.stats.stayTotal > 0 ? stayPct + '%' : '--%';
+        totalWins > 0 ? stayWinPct + '%' : '--%';
 
-      // Update comparison bar
-      const total = game.stats.switchTotal + game.stats.stayTotal;
-      if (total > 0) {
-        const switchWidth = (game.stats.switchTotal / total) * 100;
-        const stayWidth = (game.stats.stayTotal / total) * 100;
-        document.getElementById('switchBar').style.width = switchWidth + '%';
-        document.getElementById('stayBar').style.width = stayWidth + '%';
-        document.getElementById('switchBar').textContent = switchWidth > 15 ? switchPct + '%' : '';
-        document.getElementById('stayBar').textContent = stayWidth > 15 ? stayPct + '%' : '';
-      }
+      // Update comparison bar - shows proportion of wins from each strategy
+      document.getElementById('switchBar').style.width = switchWinPct + '%';
+      document.getElementById('stayBar').style.width = stayWinPct + '%';
+      document.getElementById('switchBar').textContent = switchWinPct > 15 ? switchWinPct + '%' : '';
+      document.getElementById('stayBar').textContent = stayWinPct > 15 ? stayWinPct + '%' : '';
     }
 
     function saveStats() {
