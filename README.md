@@ -2,6 +2,8 @@
 
 An interactive exploration of one of probability's most counterintuitive puzzles.
 
+**[Live Demo](https://cs.uwaterloo.ca/~a78khan/monty_hall/)**
+
 ![Monty Hall Problem](monty-hall.png)
 
 ## Overview
@@ -16,7 +18,7 @@ This project provides three ways to understand and verify the Monty Hall problem
 
 ### Web Demo
 
-Open `index.html` in any modern browser. The page includes:
+Try the [live demo](https://cs.uwaterloo.ca/~a78khan/monty_hall/) or open `index.html` locally. The page includes:
 
 - **The Game** - Play the Monty Hall game interactively
 - **Simulation** - Watch the computer play thousands of games
