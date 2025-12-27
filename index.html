@@ -1514,8 +1514,9 @@
       }
 
       .blog-main {
-        max-height: none;
+        max-height: calc(100vh - 180px);
         flex: 1;
+        overflow-y: auto;
       }
 
       .blog-hero {
@@ -2782,9 +2783,30 @@
       },
 
       updateTOCHighlight(sectionId) {
+        const tocList = document.querySelector('.toc-list');
+        let activeItem = null;
+
         document.querySelectorAll('.toc-item').forEach(item => {
-          item.classList.toggle('active', item.dataset.section === sectionId);
+          const isActive = item.dataset.section === sectionId;
+          item.classList.toggle('active', isActive);
+          if (isActive) activeItem = item;
         });
+
+        // Auto-scroll TOC to keep active item visible (for mobile horizontal scroll)
+        if (activeItem && tocList) {
+          const listRect = tocList.getBoundingClientRect();
+          const itemRect = activeItem.getBoundingClientRect();
+
+          // Check if item is outside visible area
+          if (itemRect.left < listRect.left || itemRect.right > listRect.right) {
+            // Scroll to center the active item
+            const scrollLeft = activeItem.offsetLeft - (tocList.clientWidth / 2) + (activeItem.clientWidth / 2);
+            tocList.scrollTo({
+              left: Math.max(0, scrollLeft),
+              behavior: 'smooth'
+            });
+          }
+        }
       },
 
       renderMathInSection(section) {
