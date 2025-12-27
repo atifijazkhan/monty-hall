@@ -13,204 +13,945 @@
     MathJax = {
       tex: {
         inlineMath: [['$', '$']],
-        displayMath: [['$$', '$$']],
+        displayMath: [['$$', '$$']]
       },
       svg: {
         fontCache: 'global'
       }
     };
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 
-  <!-- GitHub-style syntax highlighting -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github.min.css">
+  <!-- Highlight.js for code syntax highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github-dark.min.css">
   <script src="https://cdn.jsdelivr.net/npm/highlight.js@11"></script>
 
   <style>
     :root {
-      --bg-color: #ffffff;
-      --text-color: #24292e;
-      --heading-color: #1a202c;
-      --link-color: #0366d6;
-      --code-bg: #f6f8fa;
-      --border-color: #e1e4e8;
-      --blockquote-color: #6a737d;
-      --table-border: #dfe2e5;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-color: #0d1117;
-        --text-color: #c9d1d9;
-        --heading-color: #f0f6fc;
-        --link-color: #58a6ff;
-        --code-bg: #161b22;
-        --border-color: #30363d;
-        --blockquote-color: #8b949e;
-        --table-border: #30363d;
-      }
+      --bg-primary: #1a1a2e;
+      --bg-secondary: #16213e;
+      --bg-card: #0f3460;
+      --accent: #e94560;
+      --accent-hover: #ff6b6b;
+      --text-primary: #eaeaea;
+      --text-secondary: #a0a0a0;
+      --success: #4ecca3;
+      --border: #2a2a4a;
+      --door-wood: #8B4513;
+      --door-wood-dark: #654321;
+      --door-frame: #5D3A1A;
+      --gold: #FFD700;
     }
 
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      line-height: 1.7;
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
       padding: 20px;
     }
 
-    #content {
-      max-width: 800px;
+    .container {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 20px 40px;
     }
 
-    h1, h2, h3, h4 {
-      color: var(--heading-color);
-      margin-top: 1.5em;
-      margin-bottom: 0.5em;
-      font-weight: 600;
-      line-height: 1.3;
+    /* Header */
+    header {
+      text-align: center;
+      padding: 25px 20px;
+      background: var(--bg-secondary);
+      border-radius: 12px 12px 0 0;
+      border: 1px solid var(--border);
+      border-bottom: none;
     }
 
-    h1 {
-      font-size: 2.2em;
-      padding-bottom: 0.3em;
-      border-bottom: 1px solid var(--border-color);
+    header h1 {
+      font-size: 1.6rem;
+      margin-bottom: 5px;
+      color: var(--accent);
     }
 
-    h2 {
-      font-size: 1.6em;
-      padding-bottom: 0.3em;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    h3 {
-      font-size: 1.3em;
-    }
-
-    p {
-      margin: 1em 0;
-    }
-
-    a {
-      color: var(--link-color);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    code {
-      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-      font-size: 0.9em;
-      background-color: var(--code-bg);
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-    }
-
-    pre {
-      background-color: var(--code-bg);
-      padding: 16px;
-      border-radius: 6px;
-      overflow-x: auto;
-      line-height: 1.5;
-    }
-
-    pre code {
-      padding: 0;
-      background: none;
-    }
-
-    blockquote {
-      margin: 1em 0;
-      padding: 0.5em 1em;
-      border-left: 4px solid var(--border-color);
-      color: var(--blockquote-color);
+    header .quote {
       font-style: italic;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
     }
 
-    blockquote p {
-      margin: 0.5em 0;
+    /* Tab Navigation */
+    .tab-nav {
+      display: flex;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
     }
 
-    hr {
+    .tab-btn {
+      flex: 1;
+      padding: 15px 20px;
+      background: var(--bg-card);
       border: none;
-      border-top: 2px solid var(--border-color);
-      margin: 2em 0;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      border-bottom: 3px solid transparent;
     }
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin: 1em 0;
-      overflow-x: auto;
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(233, 69, 96, 0.1);
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      background: var(--bg-primary);
+      border-bottom-color: var(--accent);
+    }
+
+    /* Tab Content */
+    .tab-content {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      min-height: 500px;
+    }
+
+    .tab-panel {
+      display: none;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-panel.active {
       display: block;
     }
 
-    th, td {
-      border: 1px solid var(--table-border);
-      padding: 8px 12px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       TAB 1: THE GAME
+       ===================================================== */
+
+    .game-container {
+      text-align: center;
+    }
+
+    .game-stage {
+      background: linear-gradient(180deg, #2a1a4a 0%, #1a1a2e 100%);
+      border-radius: 12px;
+      padding: 30px 20px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-stage::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(180deg, rgba(233, 69, 96, 0.2) 0%, transparent 100%);
+    }
+
+    .stage-title {
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Doors Container */
+    .doors-container {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    /* Individual Door */
+    .door {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .door:hover:not(.opened):not(.disabled) {
+      transform: scale(1.05);
+    }
+
+    .door.disabled {
+      cursor: default;
+    }
+
+    .door-frame {
+      position: relative;
+      width: 110px;
+      height: 165px;
+      perspective: 1000px;
+    }
+
+    .door-panel {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--door-wood) 0%, var(--door-wood-dark) 100%);
+      border: 4px solid var(--door-frame);
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: left center;
+      transition: transform 0.6s ease-in-out;
+      box-shadow: inset -5px 0 15px rgba(0,0,0,0.3), 0 5px 20px rgba(0,0,0,0.4);
+      z-index: 2;
+    }
+
+    /* Door handle */
+    .door-panel::before {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    }
+
+    /* Door panels decoration */
+    .door-panel::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 25px;
+      bottom: 15px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+
+    .door-number {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--gold);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+
+    .door.opened .door-panel {
+      transform: rotateY(-110deg);
+    }
+
+    .door-content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%);
+      border: 4px solid var(--door-frame);
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .content-icon {
+      font-size: 3.5rem;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.3s ease 0.3s;
+    }
+
+    .door.opened .content-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .door.selected:not(.opened) .door-panel {
+      box-shadow: 0 0 25px var(--accent), inset -5px 0 15px rgba(0,0,0,0.3), 0 5px 20px rgba(0,0,0,0.4);
+      border-color: var(--accent);
+    }
+
+    .door.winner .door-content {
+      background: linear-gradient(180deg, rgba(78, 204, 163, 0.2) 0%, #1a1a2e 100%);
+    }
+
+    .door.winner .content-icon {
+      animation: celebrate 0.5s ease-in-out infinite;
+    }
+
+    @keyframes celebrate {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Game Controls */
+    .game-controls {
+      margin-bottom: 25px;
+    }
+
+    .instructions {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      min-height: 30px;
+    }
+
+    .decision-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .decision-buttons.hidden {
+      display: none;
+    }
+
+    .switch-btn, .stay-btn {
+      padding: 12px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .switch-btn {
+      background: var(--success);
+      color: #1a1a2e;
+    }
+
+    .switch-btn:hover {
+      background: #6fe8bb;
+      transform: translateY(-2px);
+    }
+
+    .stay-btn {
+      background: var(--accent);
+      color: white;
+    }
+
+    .stay-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .play-again-btn {
+      padding: 12px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .play-again-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .play-again-btn.hidden {
+      display: none;
+    }
+
+    /* Result Message */
+    .result-message {
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      animation: slideIn 0.3s ease;
+    }
+
+    .result-message.hidden {
+      display: none;
+    }
+
+    .result-message.win {
+      background: rgba(78, 204, 163, 0.2);
+      border: 2px solid var(--success);
+    }
+
+    .result-message.lose {
+      background: rgba(233, 69, 96, 0.2);
+      border: 2px solid var(--accent);
+    }
+
+    .result-emoji {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .result-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .result-message.win .result-text {
+      color: var(--success);
+    }
+
+    .result-message.lose .result-text {
+      color: var(--accent);
+    }
+
+    .result-strategy {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Statistics Panel */
+    .stats-panel {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .stats-panel h3 {
+      color: var(--accent);
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 15px;
+      background: var(--bg-card);
+      border-radius: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .stat-item.switch-stat .stat-value {
+      color: var(--success);
+    }
+
+    .stat-item.stay-stat .stat-value {
+      color: var(--accent);
+    }
+
+    /* Stats Comparison Bar */
+    .stats-comparison {
+      margin-top: 15px;
+    }
+
+    .comparison-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+
+    .comparison-label .switch-label {
+      color: var(--success);
+    }
+
+    .comparison-label .stay-label {
+      color: var(--accent);
+    }
+
+    .comparison-bar {
+      height: 24px;
+      background: var(--bg-primary);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .comparison-switch {
+      background: var(--success);
+      height: 100%;
+      transition: width 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      min-width: 0;
+    }
+
+    .comparison-stay {
+      background: var(--accent);
+      height: 100%;
+      transition: width 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      min-width: 0;
+    }
+
+    .reset-stats-btn {
+      margin-top: 15px;
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .reset-stats-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* =====================================================
+       TAB 2: SIMULATION
+       ===================================================== */
+
+    .sim-config-section {
+      background: var(--bg-secondary);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .sim-config-section label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .sim-config-section input {
+      width: 200px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .sim-config-section input:focus {
+      border-color: var(--accent);
+    }
+
+    .sim-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .sim-menu-item {
+      background: var(--bg-card);
+      padding: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .sim-menu-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .sim-menu-item.active {
+      border-color: var(--success);
+    }
+
+    .sim-menu-item h3 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .sim-menu-item .expected {
+      font-size: 0.8rem;
+      color: var(--success);
+    }
+
+    .sim-menu-item .description {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .sim-run-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 20px;
+    }
+
+    .sim-run-btn:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .sim-run-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .sim-results-section {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      min-height: 150px;
+    }
+
+    .sim-results-section h2 {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .progress-container {
+      margin-bottom: 20px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .progress-bar {
+      height: 24px;
+      background: var(--bg-primary);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      border-radius: 12px;
+      transition: width 0.1s;
+      width: 0%;
+    }
+
+    .result-card {
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 12px;
+    }
+
+    .result-card h4 {
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .result-item {
+      text-align: center;
+    }
+
+    .result-item .label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .result-item .value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .result-item .value.success {
+      color: var(--success);
+    }
+
+    .result-item .value.accent {
+      color: var(--accent);
+    }
+
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .summary-table th,
+    .summary-table td {
+      padding: 10px;
       text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
     }
 
-    th {
-      background-color: var(--code-bg);
+    .summary-table th {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .summary-table .optimal {
+      color: var(--success);
       font-weight: 600;
     }
 
-    tr:nth-child(even) {
-      background-color: var(--code-bg);
+    .summary-table .suboptimal {
+      color: var(--accent);
     }
 
-    ul, ol {
-      padding-left: 2em;
-      margin: 1em 0;
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-secondary);
     }
 
-    li {
-      margin: 0.3em 0;
+    /* =====================================================
+       TAB 3: BLOG
+       ===================================================== */
+
+    .blog-container {
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    strong {
-      font-weight: 600;
+    .blog-hero-image {
+      width: 100%;
+      max-width: 500px;
+      display: block;
+      margin: 0 auto 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
-    em {
+    .blog-content {
+      background: var(--bg-secondary);
+      padding: 35px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      line-height: 1.75;
+      max-height: 65vh;
+      overflow-y: auto;
+    }
+
+    .blog-content h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .blog-content h2 {
+      color: var(--text-primary);
+      font-size: 1.4rem;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .blog-content h3 {
+      color: var(--text-primary);
+      font-size: 1.15rem;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    .blog-content p {
+      margin-bottom: 15px;
+      color: var(--text-primary);
+    }
+
+    .blog-content em {
       font-style: italic;
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
+    .blog-content strong {
+      color: var(--success);
+      font-weight: 600;
     }
 
-    /* MathJax display equations */
-    .MathJax {
+    .blog-content blockquote {
+      border-left: 4px solid var(--accent);
+      margin: 20px 0;
+      padding: 12px 20px;
+      background: rgba(233, 69, 96, 0.1);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .blog-content blockquote p {
+      margin-bottom: 8px;
+    }
+
+    .blog-content blockquote p:last-child {
+      margin-bottom: 0;
+    }
+
+    .blog-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .blog-content th,
+    .blog-content td {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .blog-content th {
+      background: var(--bg-card);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .blog-content tr:nth-child(even) {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .blog-content code {
+      background: var(--bg-primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 0.9em;
+    }
+
+    .blog-content pre {
+      background: var(--bg-primary);
+      padding: 18px;
+      border-radius: 8px;
       overflow-x: auto;
-      overflow-y: hidden;
+      margin: 20px 0;
     }
 
-    /* Loading indicator */
-    #loading {
+    .blog-content pre code {
+      padding: 0;
+      background: transparent;
+    }
+
+    .blog-content ul,
+    .blog-content ol {
+      margin: 15px 0;
+      padding-left: 25px;
+    }
+
+    .blog-content li {
+      margin-bottom: 8px;
+    }
+
+    .blog-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 30px 0;
+    }
+
+    .blog-content a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .blog-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Blog scrollbar */
+    .blog-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .blog-content::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+      border-radius: 4px;
+    }
+
+    .blog-content::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .blog-content::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    .blog-loading {
       text-align: center;
-      padding: 4em;
-      color: var(--blockquote-color);
+      padding: 50px;
+      color: var(--text-secondary);
     }
 
-    #loading::after {
+    .blog-loading::after {
       content: '';
       display: inline-block;
       width: 20px;
       height: 20px;
-      border: 2px solid var(--border-color);
-      border-top-color: var(--link-color);
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin-left: 10px;
@@ -221,64 +962,854 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Print styles */
-    @media print {
-      body {
-        background: white;
-        color: black;
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 768px) {
+      .doors-container {
+        gap: 15px;
       }
-      #content {
-        max-width: none;
+
+      .door-frame {
+        width: 90px;
+        height: 135px;
+      }
+
+      .door-number {
+        font-size: 1.8rem;
+      }
+
+      .content-icon {
+        font-size: 2.8rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .decision-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .switch-btn, .stay-btn {
+        width: 100%;
+      }
+
+      .blog-content {
+        padding: 20px;
+        max-height: 55vh;
+      }
+
+      .sim-menu {
+        grid-template-columns: 1fr;
+      }
+
+      .sim-config-section input {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.3rem;
+      }
+
+      .tab-btn {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+      }
+
+      .door-frame {
+        width: 75px;
+        height: 112px;
+      }
+
+      .door-number {
+        font-size: 1.5rem;
+      }
+
+      .content-icon {
+        font-size: 2.2rem;
+      }
+
+      .instructions {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div id="content">
-    <div id="loading">Loading</div>
+  <div class="container">
+    <header>
+      <h1>THE MONTY HALL PROBLEM</h1>
+      <p class="quote">"You should always switch" &mdash; Marilyn vos Savant, 1990</p>
+    </header>
+
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="game">The Game</button>
+      <button class="tab-btn" data-tab="simulation">Simulation</button>
+      <button class="tab-btn" data-tab="blog">Blog</button>
+    </nav>
+
+    <main class="tab-content">
+      <!-- ==================== TAB 1: THE GAME ==================== -->
+      <section id="game-tab" class="tab-panel active">
+        <div class="game-container">
+          <div class="game-stage">
+            <div class="stage-title">Let's Make a Deal!</div>
+            <div class="doors-container">
+              <div class="door" data-door="0" onclick="selectDoor(0)">
+                <div class="door-frame">
+                  <div class="door-panel">
+                    <span class="door-number">1</span>
+                  </div>
+                  <div class="door-content">
+                    <span class="content-icon" id="content-0"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="door" data-door="1" onclick="selectDoor(1)">
+                <div class="door-frame">
+                  <div class="door-panel">
+                    <span class="door-number">2</span>
+                  </div>
+                  <div class="door-content">
+                    <span class="content-icon" id="content-1"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="door" data-door="2" onclick="selectDoor(2)">
+                <div class="door-frame">
+                  <div class="door-panel">
+                    <span class="door-number">3</span>
+                  </div>
+                  <div class="door-content">
+                    <span class="content-icon" id="content-2"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-controls">
+            <p class="instructions" id="gameInstructions">Pick a door to begin!</p>
+
+            <div class="result-message hidden" id="resultMessage">
+              <div class="result-emoji" id="resultEmoji"></div>
+              <div class="result-text" id="resultText"></div>
+              <div class="result-strategy" id="resultStrategy"></div>
+            </div>
+
+            <div class="decision-buttons hidden" id="decisionBtns">
+              <button class="switch-btn" onclick="makeDecision(true)">SWITCH</button>
+              <button class="stay-btn" onclick="makeDecision(false)">STAY</button>
+            </div>
+
+            <button class="play-again-btn hidden" id="playAgainBtn" onclick="initGame()">Play Again</button>
+          </div>
+
+          <div class="stats-panel">
+            <h3>Your Statistics</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label">Games Played</span>
+                <span class="stat-value" id="statGames">0</span>
+              </div>
+              <div class="stat-item switch-stat">
+                <span class="stat-label">Switch Wins</span>
+                <span class="stat-value" id="statSwitchWins">0/0</span>
+              </div>
+              <div class="stat-item stay-stat">
+                <span class="stat-label">Stay Wins</span>
+                <span class="stat-value" id="statStayWins">0/0</span>
+              </div>
+            </div>
+            <div class="stats-comparison" id="statsComparison">
+              <div class="comparison-label">
+                <span class="switch-label">Switch: <span id="switchPct">--%</span></span>
+                <span class="stay-label">Stay: <span id="stayPct">--%</span></span>
+              </div>
+              <div class="comparison-bar">
+                <div class="comparison-switch" id="switchBar" style="width: 50%;"></div>
+                <div class="comparison-stay" id="stayBar" style="width: 50%;"></div>
+              </div>
+            </div>
+            <button class="reset-stats-btn" onclick="resetStats()">Reset Statistics</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 2: SIMULATION ==================== -->
+      <section id="simulation-tab" class="tab-panel">
+        <div class="sim-config-section">
+          <label for="numGames">Number of games per scenario:</label>
+          <input type="text" id="numGames" value="10,000" placeholder="10000">
+        </div>
+
+        <div class="sim-menu">
+          <div class="sim-menu-item" data-scenario="1">
+            <h3>1. Standard 3-Door (Always Switch)</h3>
+            <p class="expected">Expected: 66.67%</p>
+            <p class="description">Player always switches after host reveals a goat</p>
+          </div>
+          <div class="sim-menu-item" data-scenario="2">
+            <h3>2. Standard 3-Door (Always Stay)</h3>
+            <p class="expected">Expected: 33.33%</p>
+            <p class="description">Player always stays with original choice</p>
+          </div>
+          <div class="sim-menu-item" data-scenario="3">
+            <h3>3. Shuffled Variant (Random Pick)</h3>
+            <p class="expected">Expected: 50.00%</p>
+            <p class="description">Doors shuffled after reveal, player picks randomly</p>
+          </div>
+          <div class="sim-menu-item" data-scenario="4">
+            <h3>4. N-Door Generalization (Switch)</h3>
+            <p class="expected">Expected: (n-1)/n</p>
+            <p class="description">Test with 3, 5, 10, 50, and 100 doors</p>
+          </div>
+          <div class="sim-menu-item" data-scenario="5">
+            <h3>5. Run ALL Scenarios</h3>
+            <p class="expected">Complete Analysis</p>
+            <p class="description">Execute all scenarios and show summary</p>
+          </div>
+        </div>
+
+        <button class="sim-run-btn" id="simRunBtn">Select a Scenario to Run</button>
+
+        <div class="sim-results-section">
+          <h2>Results</h2>
+          <div id="simResultsContent">
+            <div class="empty-state">
+              <p>Select a scenario above and click run to see results</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 3: BLOG ==================== -->
+      <section id="blog-tab" class="tab-panel">
+        <div class="blog-container">
+          <img src="monty-hall.png" alt="Monty Hall Problem Infographic" class="blog-hero-image">
+          <article class="blog-content" id="blogContent">
+            <div class="blog-loading">Loading blog content</div>
+          </article>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script>
-    // Configure marked with syntax highlighting
-    marked.setOptions({
-      highlight: function(code, lang) {
-        if (lang && hljs.getLanguage(lang)) {
-          return hljs.highlight(code, { language: lang }).value;
+    // ============================================================================
+    // TAB NAVIGATION
+    // ============================================================================
+
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    let blogLoaded = false;
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById(`${btn.dataset.tab}-tab`).classList.add('active');
+
+        // Lazy load blog content
+        if (btn.dataset.tab === 'blog' && !blogLoaded) {
+          loadBlogContent();
+          blogLoaded = true;
         }
-        return hljs.highlightAuto(code).value;
-      },
-      breaks: false,
-      gfm: true
+      });
     });
 
-    // Fetch and render the markdown file
-    async function loadMarkdown() {
+    // ============================================================================
+    // TAB 1: THE GAME - STATE MACHINE
+    // ============================================================================
+
+    const GameState = {
+      INITIAL: 'initial',
+      DOOR_SELECTED: 'door_selected',
+      GOAT_REVEALED: 'goat_revealed',
+      FINAL_REVEAL: 'final_reveal'
+    };
+
+    const game = {
+      state: GameState.INITIAL,
+      carDoor: null,
+      playerPick: null,
+      montyOpened: null,
+      finalChoice: null,
+      didSwitch: null,
+      stats: {
+        gamesPlayed: 0,
+        switchWins: 0,
+        switchTotal: 0,
+        stayWins: 0,
+        stayTotal: 0
+      }
+    };
+
+    function initGame() {
+      game.state = GameState.INITIAL;
+      game.carDoor = Math.floor(Math.random() * 3);
+      game.playerPick = null;
+      game.montyOpened = null;
+      game.finalChoice = null;
+      game.didSwitch = null;
+
+      // Reset door visuals
+      document.querySelectorAll('.door').forEach((door, i) => {
+        door.classList.remove('opened', 'selected', 'disabled', 'winner');
+        document.getElementById(`content-${i}`).textContent = '';
+      });
+
+      // Reset UI
+      document.getElementById('gameInstructions').textContent = 'Pick a door to begin!';
+      document.getElementById('decisionBtns').classList.add('hidden');
+      document.getElementById('playAgainBtn').classList.add('hidden');
+      document.getElementById('resultMessage').classList.add('hidden');
+    }
+
+    function selectDoor(doorIndex) {
+      if (game.state !== GameState.INITIAL) return;
+
+      game.playerPick = doorIndex;
+      game.state = GameState.DOOR_SELECTED;
+
+      // Highlight selected door
+      document.querySelectorAll('.door').forEach(d => d.classList.add('disabled'));
+      document.querySelector(`[data-door="${doorIndex}"]`).classList.add('selected');
+
+      document.getElementById('gameInstructions').textContent = 'You picked Door ' + (doorIndex + 1) + '. Monty is opening a door...';
+
+      // Monty reveals after delay
+      setTimeout(() => revealGoat(), 1000);
+    }
+
+    function revealGoat() {
+      // Find a door Monty can open (not player's pick, not the car)
+      const possibleDoors = [];
+      for (let i = 0; i < 3; i++) {
+        if (i !== game.playerPick && i !== game.carDoor) {
+          possibleDoors.push(i);
+        }
+      }
+      // If player picked the car, Monty can open either of the other two
+      game.montyOpened = possibleDoors[Math.floor(Math.random() * possibleDoors.length)];
+
+      game.state = GameState.GOAT_REVEALED;
+
+      // Open the door and show goat
+      const montyDoor = document.querySelector(`[data-door="${game.montyOpened}"]`);
+      montyDoor.classList.add('opened');
+      document.getElementById(`content-${game.montyOpened}`).textContent = '🐐';
+
+      // Find the remaining door (the switch option)
+      let switchDoor;
+      for (let i = 0; i < 3; i++) {
+        if (i !== game.playerPick && i !== game.montyOpened) {
+          switchDoor = i;
+          break;
+        }
+      }
+
+      document.getElementById('gameInstructions').textContent =
+        `Monty opened Door ${game.montyOpened + 1} revealing a goat! Do you want to SWITCH to Door ${switchDoor + 1} or STAY with Door ${game.playerPick + 1}?`;
+      document.getElementById('decisionBtns').classList.remove('hidden');
+    }
+
+    function makeDecision(switchDoor) {
+      if (game.state !== GameState.GOAT_REVEALED) return;
+
+      game.didSwitch = switchDoor;
+      document.getElementById('decisionBtns').classList.add('hidden');
+
+      if (switchDoor) {
+        // Find the switch door
+        for (let i = 0; i < 3; i++) {
+          if (i !== game.playerPick && i !== game.montyOpened) {
+            game.finalChoice = i;
+            break;
+          }
+        }
+        // Update selection visual
+        document.querySelector(`[data-door="${game.playerPick}"]`).classList.remove('selected');
+        document.querySelector(`[data-door="${game.finalChoice}"]`).classList.add('selected');
+      } else {
+        game.finalChoice = game.playerPick;
+      }
+
+      game.state = GameState.FINAL_REVEAL;
+      document.getElementById('gameInstructions').textContent =
+        `You chose to ${switchDoor ? 'SWITCH' : 'STAY'}. Revealing all doors...`;
+
+      setTimeout(() => revealAllDoors(), 800);
+    }
+
+    function revealAllDoors() {
+      const won = game.finalChoice === game.carDoor;
+
+      // Update statistics
+      game.stats.gamesPlayed++;
+      if (game.didSwitch) {
+        game.stats.switchTotal++;
+        if (won) game.stats.switchWins++;
+      } else {
+        game.stats.stayTotal++;
+        if (won) game.stats.stayWins++;
+      }
+      saveStats();
+
+      // Reveal remaining doors
+      for (let i = 0; i < 3; i++) {
+        if (i !== game.montyOpened) {
+          const door = document.querySelector(`[data-door="${i}"]`);
+          door.classList.add('opened');
+          const icon = i === game.carDoor ? '🚗' : '🐐';
+          document.getElementById(`content-${i}`).textContent = icon;
+
+          if (i === game.carDoor && won) {
+            door.classList.add('winner');
+          }
+        }
+      }
+
+      // Show result
+      const resultMessage = document.getElementById('resultMessage');
+      const resultEmoji = document.getElementById('resultEmoji');
+      const resultText = document.getElementById('resultText');
+      const resultStrategy = document.getElementById('resultStrategy');
+
+      resultMessage.classList.remove('hidden', 'win', 'lose');
+      resultMessage.classList.add(won ? 'win' : 'lose');
+      resultEmoji.textContent = won ? '🎉' : '😢';
+      resultText.textContent = won ? 'You Won the Car!' : 'You Got a Goat!';
+      resultStrategy.textContent = `You ${game.didSwitch ? 'switched' : 'stayed'}. ${won ? (game.didSwitch ? 'Switching paid off!' : 'Lucky! Staying usually loses.') : (game.didSwitch ? 'Unlucky! Switching usually wins.' : 'Should have switched!')}`;
+
+      document.getElementById('gameInstructions').textContent = '';
+      document.getElementById('playAgainBtn').classList.remove('hidden');
+      updateStatsDisplay();
+    }
+
+    // ============================================================================
+    // TAB 1: STATISTICS
+    // ============================================================================
+
+    function updateStatsDisplay() {
+      document.getElementById('statGames').textContent = game.stats.gamesPlayed;
+      document.getElementById('statSwitchWins').textContent =
+        `${game.stats.switchWins}/${game.stats.switchTotal}`;
+      document.getElementById('statStayWins').textContent =
+        `${game.stats.stayWins}/${game.stats.stayTotal}`;
+
+      // Calculate percentages
+      const switchPct = game.stats.switchTotal > 0
+        ? Math.round((game.stats.switchWins / game.stats.switchTotal) * 100)
+        : 0;
+      const stayPct = game.stats.stayTotal > 0
+        ? Math.round((game.stats.stayWins / game.stats.stayTotal) * 100)
+        : 0;
+
+      document.getElementById('switchPct').textContent =
+        game.stats.switchTotal > 0 ? switchPct + '%' : '--%';
+      document.getElementById('stayPct').textContent =
+        game.stats.stayTotal > 0 ? stayPct + '%' : '--%';
+
+      // Update comparison bar
+      const total = game.stats.switchTotal + game.stats.stayTotal;
+      if (total > 0) {
+        const switchWidth = (game.stats.switchTotal / total) * 100;
+        const stayWidth = (game.stats.stayTotal / total) * 100;
+        document.getElementById('switchBar').style.width = switchWidth + '%';
+        document.getElementById('stayBar').style.width = stayWidth + '%';
+        document.getElementById('switchBar').textContent = switchWidth > 15 ? switchPct + '%' : '';
+        document.getElementById('stayBar').textContent = stayWidth > 15 ? stayPct + '%' : '';
+      }
+    }
+
+    function saveStats() {
+      localStorage.setItem('montyHallStats', JSON.stringify(game.stats));
+    }
+
+    function loadStats() {
+      const saved = localStorage.getItem('montyHallStats');
+      if (saved) {
+        game.stats = JSON.parse(saved);
+        updateStatsDisplay();
+      }
+    }
+
+    function resetStats() {
+      game.stats = {
+        gamesPlayed: 0,
+        switchWins: 0,
+        switchTotal: 0,
+        stayWins: 0,
+        stayTotal: 0
+      };
+      saveStats();
+      updateStatsDisplay();
+      document.getElementById('switchBar').style.width = '50%';
+      document.getElementById('stayBar').style.width = '50%';
+      document.getElementById('switchBar').textContent = '';
+      document.getElementById('stayBar').textContent = '';
+    }
+
+    // ============================================================================
+    // TAB 2: SIMULATION
+    // ============================================================================
+
+    let selectedScenario = null;
+    const simMenuItems = document.querySelectorAll('.sim-menu-item');
+    const simRunBtn = document.getElementById('simRunBtn');
+    const simResultsContent = document.getElementById('simResultsContent');
+    const numGamesInput = document.getElementById('numGames');
+
+    simMenuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        simMenuItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        selectedScenario = parseInt(item.dataset.scenario);
+        simRunBtn.textContent = `Run Scenario ${selectedScenario}`;
+      });
+    });
+
+    simRunBtn.addEventListener('click', async () => {
+      if (!selectedScenario) {
+        alert('Please select a scenario first');
+        return;
+      }
+
+      const numGames = parseNumGames(numGamesInput.value);
+      if (numGames < 1) {
+        alert('Please enter a valid number of games');
+        return;
+      }
+
+      simRunBtn.disabled = true;
+      simRunBtn.textContent = 'Running...';
+
+      try {
+        switch (selectedScenario) {
+          case 1: await runSimScenario1(numGames); break;
+          case 2: await runSimScenario2(numGames); break;
+          case 3: await runSimScenario3(numGames); break;
+          case 4: await runSimScenario4(numGames); break;
+          case 5: await runSimAllScenarios(numGames); break;
+        }
+      } finally {
+        simRunBtn.disabled = false;
+        simRunBtn.textContent = `Run Scenario ${selectedScenario}`;
+      }
+    });
+
+    function parseNumGames(input) {
+      return parseInt(input.replace(/[,.\s'_]/g, ''), 10) || 0;
+    }
+
+    function formatNumber(n) {
+      return n.toLocaleString();
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function simulateStandard(numDoors, strategy) {
+      const carDoor = Math.floor(Math.random() * numDoors);
+      const playerPick = Math.floor(Math.random() * numDoors);
+
+      let switchDoor;
+      if (playerPick === carDoor) {
+        switchDoor = (playerPick + 1) % numDoors;
+      } else {
+        switchDoor = carDoor;
+      }
+
+      const finalChoice = (strategy === 'switch') ? switchDoor : playerPick;
+      return finalChoice === carDoor;
+    }
+
+    function simulateShuffled() {
+      const carDoor = Math.floor(Math.random() * 3);
+      const playerPick = Math.floor(Math.random() * 3);
+
+      let hostOpens;
+      for (let i = 0; i < 3; i++) {
+        if (i !== playerPick && i !== carDoor) {
+          hostOpens = i;
+          break;
+        }
+      }
+
+      const remaining = [];
+      for (let i = 0; i < 3; i++) {
+        if (i !== hostOpens) {
+          remaining.push(i);
+        }
+      }
+
+      const finalChoice = remaining[Math.floor(Math.random() * 2)];
+      return finalChoice === carDoor;
+    }
+
+    function showSimProgress(label) {
+      simResultsContent.innerHTML = `
+        <div class="progress-container">
+          <div class="progress-label">
+            <span id="progressLabel">${label}</span>
+            <span id="progressPct">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+        <div id="resultCards"></div>
+      `;
+    }
+
+    function updateSimProgress(pct, label = null) {
+      const fill = document.getElementById('progressFill');
+      const pctEl = document.getElementById('progressPct');
+      const labelEl = document.getElementById('progressLabel');
+      if (fill) fill.style.width = pct + '%';
+      if (pctEl) pctEl.textContent = Math.round(pct) + '%';
+      if (label && labelEl) labelEl.textContent = label;
+    }
+
+    function appendSimResultCard(title, wins, total, theoretical) {
+      const container = document.getElementById('resultCards');
+      const empirical = (wins / total * 100).toFixed(2);
+      const theoreticalPct = (theoretical * 100).toFixed(2);
+      const diff = Math.abs(parseFloat(empirical) - parseFloat(theoreticalPct)).toFixed(2);
+
+      const card = document.createElement('div');
+      card.className = 'result-card';
+      card.innerHTML = `
+        <h4>${title}</h4>
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="label">Games Played</div>
+            <div class="value">${formatNumber(total)}</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Wins</div>
+            <div class="value">${formatNumber(wins)}</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Empirical</div>
+            <div class="value success">${empirical}%</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Theoretical</div>
+            <div class="value accent">${theoreticalPct}%</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Difference</div>
+            <div class="value">&plusmn;${diff}%</div>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    }
+
+    async function runSimulation(simulateFn, numGames, label) {
+      let wins = 0;
+      const chunkSize = Math.min(10000, Math.max(100, Math.floor(numGames / 100)));
+
+      for (let i = 0; i < numGames; i += chunkSize) {
+        const end = Math.min(i + chunkSize, numGames);
+        for (let j = i; j < end; j++) {
+          if (simulateFn()) wins++;
+        }
+        updateSimProgress((end / numGames) * 100, label);
+        await sleep(0);
+      }
+
+      return wins;
+    }
+
+    async function runSimScenario1(numGames) {
+      showSimProgress('Scenario 1: Always Switch (3 doors)');
+      const wins = await runSimulation(() => simulateStandard(3, 'switch'), numGames, 'Always Switch');
+      appendSimResultCard('Standard 3-Door - Always Switch', wins, numGames, 2/3);
+    }
+
+    async function runSimScenario2(numGames) {
+      showSimProgress('Scenario 2: Always Stay (3 doors)');
+      const wins = await runSimulation(() => simulateStandard(3, 'stay'), numGames, 'Always Stay');
+      appendSimResultCard('Standard 3-Door - Always Stay', wins, numGames, 1/3);
+    }
+
+    async function runSimScenario3(numGames) {
+      showSimProgress('Scenario 3: Shuffled Variant');
+      const wins = await runSimulation(simulateShuffled, numGames, 'Shuffled Variant');
+      appendSimResultCard('Shuffled Variant - Random Pick', wins, numGames, 1/2);
+    }
+
+    async function runSimScenario4(numGames) {
+      showSimProgress('Scenario 4: N-Door Generalization');
+      const doorCounts = [3, 5, 10, 50, 100];
+      const totalRuns = doorCounts.length;
+
+      for (let idx = 0; idx < doorCounts.length; idx++) {
+        const n = doorCounts[idx];
+        updateSimProgress((idx / totalRuns) * 100, `Testing n=${n} doors`);
+
+        let wins = 0;
+        const chunkSize = Math.min(10000, Math.max(100, Math.floor(numGames / 50)));
+
+        for (let i = 0; i < numGames; i += chunkSize) {
+          const end = Math.min(i + chunkSize, numGames);
+          for (let j = i; j < end; j++) {
+            if (simulateStandard(n, 'switch')) wins++;
+          }
+          const subProgress = (idx + (end / numGames)) / totalRuns * 100;
+          updateSimProgress(subProgress, `Testing n=${n} doors`);
+          await sleep(0);
+        }
+
+        appendSimResultCard(`N=${n} Doors - Always Switch`, wins, numGames, (n - 1) / n);
+      }
+      updateSimProgress(100, 'Complete');
+    }
+
+    async function runSimAllScenarios(numGames) {
+      showSimProgress('Running all scenarios...');
+
+      updateSimProgress(0, 'Scenario 1: Always Switch');
+      const wins1 = await runSimulation(() => simulateStandard(3, 'switch'), numGames, 'Scenario 1: Always Switch');
+      appendSimResultCard('Scenario 1: Always Switch (3 doors)', wins1, numGames, 2/3);
+
+      updateSimProgress(20, 'Scenario 2: Always Stay');
+      const wins2 = await runSimulation(() => simulateStandard(3, 'stay'), numGames, 'Scenario 2: Always Stay');
+      appendSimResultCard('Scenario 2: Always Stay (3 doors)', wins2, numGames, 1/3);
+
+      updateSimProgress(40, 'Scenario 3: Shuffled Variant');
+      const wins3 = await runSimulation(simulateShuffled, numGames, 'Scenario 3: Shuffled Variant');
+      appendSimResultCard('Scenario 3: Shuffled Variant', wins3, numGames, 1/2);
+
+      const doorCounts = [3, 5, 10, 50, 100];
+      for (let idx = 0; idx < doorCounts.length; idx++) {
+        const n = doorCounts[idx];
+        const baseProgress = 60 + (idx / doorCounts.length) * 35;
+        updateSimProgress(baseProgress, `Scenario 4: n=${n} doors`);
+
+        let wins = 0;
+        const chunkSize = Math.min(5000, Math.max(100, Math.floor(numGames / 20)));
+        for (let i = 0; i < numGames; i += chunkSize) {
+          const end = Math.min(i + chunkSize, numGames);
+          for (let j = i; j < end; j++) {
+            if (simulateStandard(n, 'switch')) wins++;
+          }
+          await sleep(0);
+        }
+        appendSimResultCard(`Scenario 4: n=${n} Doors (Switch)`, wins, numGames, (n - 1) / n);
+      }
+
+      updateSimProgress(100, 'All scenarios complete');
+
+      const container = document.getElementById('resultCards');
+      const summary = document.createElement('div');
+      summary.className = 'result-card';
+      summary.innerHTML = `
+        <h4>Summary</h4>
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Theoretical</th>
+              <th>Strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Standard 3-door (switch)</td>
+              <td>66.67%</td>
+              <td class="optimal">OPTIMAL</td>
+            </tr>
+            <tr>
+              <td>Standard 3-door (stay)</td>
+              <td>33.33%</td>
+              <td class="suboptimal">Suboptimal</td>
+            </tr>
+            <tr>
+              <td>Shuffled variant</td>
+              <td>50.00%</td>
+              <td>No advantage</td>
+            </tr>
+            <tr>
+              <td>N-door (switch)</td>
+              <td>(n-1)/n</td>
+              <td class="optimal">OPTIMAL</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 15px; text-align: center; color: var(--success); font-weight: 600;">
+          Conclusion: Always switch!
+        </p>
+      `;
+      container.appendChild(summary);
+    }
+
+    // ============================================================================
+    // TAB 3: BLOG
+    // ============================================================================
+
+    async function loadBlogContent() {
+      const blogContainer = document.getElementById('blogContent');
+
       try {
         const response = await fetch('monty-hall-blog.md');
-        if (!response.ok) {
-          throw new Error(`Failed to load: ${response.status}`);
-        }
+        if (!response.ok) throw new Error('Failed to load blog');
+
         const markdown = await response.text();
 
-        // Render markdown to HTML
-        const html = marked.parse(markdown);
-        document.getElementById('content').innerHTML = html;
+        // Configure marked
+        marked.setOptions({
+          highlight: function(code, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+              return hljs.highlight(code, { language: lang }).value;
+            }
+            return hljs.highlightAuto(code).value;
+          },
+          breaks: false,
+          gfm: true
+        });
 
-        // Trigger MathJax to process the new content
-        if (window.MathJax) {
-          MathJax.typesetPromise();
+        // Parse and render
+        const html = marked.parse(markdown);
+        blogContainer.innerHTML = html;
+
+        // Trigger MathJax
+        if (window.MathJax && MathJax.typesetPromise) {
+          MathJax.typesetPromise([blogContainer]);
         }
+
       } catch (error) {
-        document.getElementById('content').innerHTML = `
-          <h1>Error Loading Content</h1>
-          <p>Could not load the markdown file: ${error.message}</p>
-          <p>Make sure you're running this through a web server (e.g., <code>python -m http.server</code>).</p>
+        blogContainer.innerHTML = `
+          <div class="empty-state">
+            <p>Failed to load blog content: ${error.message}</p>
+            <p style="margin-top: 10px; font-size: 0.85rem;">
+              Make sure you're running this through a web server<br>
+              (e.g., <code>python -m http.server</code>)
+            </p>
+          </div>
         `;
       }
     }
 
-    // Load on page ready
-    document.addEventListener('DOMContentLoaded', loadMarkdown);
+    // ============================================================================
+    // INITIALIZATION
+    // ============================================================================
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadStats();
+      initGame();
+    });
   </script>
 </body>
 </html>
