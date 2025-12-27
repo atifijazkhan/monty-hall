@@ -1125,10 +1125,6 @@
       font-weight: 500;
     }
 
-    .toc-item.expanded {
-      color: var(--success);
-    }
-
     .toc-number {
       font-size: 0.65rem;
       opacity: 0.6;
@@ -2610,9 +2606,10 @@
         }
       },
 
+      isScrolling: false,
+
       toggleSection(sectionId, forceExpand = null) {
         const section = document.querySelector(`.blog-section[data-section="${sectionId}"]`);
-        const tocItem = document.querySelector(`.toc-item[data-section="${sectionId}"]`);
 
         if (!section) return;
 
@@ -2620,17 +2617,13 @@
 
         if (shouldExpand) {
           section.classList.add('expanded');
-          tocItem?.classList.add('expanded');
           this.currentSection = sectionId;
 
           // Re-render MathJax for this section
           this.renderMathInSection(section);
         } else {
           section.classList.remove('expanded');
-          tocItem?.classList.remove('expanded');
         }
-
-        this.updateTOCHighlight(sectionId);
       },
 
       scrollToSection(sectionId) {
@@ -2642,12 +2635,21 @@
         // Expand the section first
         this.toggleSection(sectionId, true);
 
-        // Smooth scroll within the container
-        const sectionTop = section.offsetTop - blogMain.offsetTop;
-        blogMain.scrollTo({
-          top: sectionTop - 20,
-          behavior: 'smooth'
-        });
+        // Update TOC highlight immediately
+        this.updateTOCHighlight(sectionId);
+
+        // Disable scroll tracking during programmatic scroll
+        this.isScrolling = true;
+
+        // Wait for expansion animation, then scroll
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          // Re-enable scroll tracking after scroll completes
+          setTimeout(() => {
+            this.isScrolling = false;
+          }, 500);
+        }, 50);
       },
 
       expandAll() {
@@ -2671,6 +2673,9 @@
       },
 
       updateVisibleSection(blogMain) {
+        // Skip updates during programmatic scrolling
+        if (this.isScrolling) return;
+
         const sections = document.querySelectorAll('.blog-section');
         let currentVisible = null;
 
