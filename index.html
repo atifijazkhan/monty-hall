@@ -550,220 +550,496 @@
     }
 
     /* =====================================================
-       TAB 2: SIMULATION
+       TAB 2: SIMULATION - REDESIGNED
        ===================================================== */
 
-    .sim-config-section {
-      background: var(--bg-secondary);
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
+    .sim-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
     }
 
-    .sim-config-section label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
+    .sim-config {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .sim-config-section input {
-      width: 200px;
-      padding: 10px 15px;
+    .sim-config label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .sim-config input {
+      width: 120px;
+      padding: 10px 14px;
       font-size: 1rem;
       border: 2px solid var(--border);
       border-radius: 8px;
-      background: var(--bg-primary);
+      background: var(--bg-secondary);
       color: var(--text-primary);
       outline: none;
       transition: border-color 0.2s;
+      text-align: center;
     }
 
-    .sim-config-section input:focus {
+    .sim-config input:focus {
       border-color: var(--accent);
-    }
-
-    .sim-menu {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .sim-menu-item {
-      background: var(--bg-card);
-      padding: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: 2px solid transparent;
-    }
-
-    .sim-menu-item:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .sim-menu-item.active {
-      border-color: var(--success);
-    }
-
-    .sim-menu-item h3 {
-      font-size: 0.95rem;
-      margin-bottom: 6px;
-      color: var(--text-primary);
-    }
-
-    .sim-menu-item .expected {
-      font-size: 0.8rem;
-      color: var(--success);
-    }
-
-    .sim-menu-item .description {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-top: 4px;
     }
 
     .sim-run-btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      font-size: 1.1rem;
+      padding: 12px 30px;
+      font-size: 1rem;
       font-weight: 600;
       background: var(--accent);
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s;
-      margin-bottom: 20px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .sim-run-btn:hover:not(:disabled) {
       background: var(--accent-hover);
+      transform: translateY(-1px);
     }
 
     .sim-run-btn:disabled {
-      opacity: 0.5;
+      opacity: 0.6;
       cursor: not-allowed;
     }
 
-    .sim-results-section {
+    .sim-run-btn .play-icon {
+      font-size: 1.1rem;
+    }
+
+    /* Scenario Pills */
+    .sim-scenarios {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .sim-pill {
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 2px solid var(--border);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sim-pill:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .sim-pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* Progress Section */
+    .sim-progress {
       background: var(--bg-secondary);
       border-radius: 12px;
-      padding: 20px;
-      border: 1px solid var(--border);
-      min-height: 150px;
+      padding: 15px 20px;
+      margin-bottom: 25px;
+      display: none;
     }
 
-    .sim-results-section h2 {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      color: var(--accent);
+    .sim-progress.visible {
+      display: block;
     }
 
-    .progress-container {
-      margin-bottom: 20px;
-    }
-
-    .progress-label {
+    .sim-progress-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 0.9rem;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
-    .progress-bar {
-      height: 24px;
+    .sim-progress-label {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+
+    .sim-progress-pct {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .sim-progress-bar {
+      height: 8px;
       background: var(--bg-primary);
-      border-radius: 12px;
+      border-radius: 4px;
       overflow: hidden;
     }
 
-    .progress-fill {
+    .sim-progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--accent), var(--success));
-      border-radius: 12px;
-      transition: width 0.1s;
+      border-radius: 4px;
+      transition: width 0.15s ease;
       width: 0%;
     }
 
-    .result-card {
-      background: var(--bg-card);
-      border-radius: 10px;
-      padding: 18px;
-      margin-bottom: 12px;
+    /* Results Container */
+    .sim-results {
+      display: none;
     }
 
-    .result-card h4 {
-      color: var(--accent);
-      margin-bottom: 12px;
-      font-size: 0.95rem;
+    .sim-results.visible {
+      display: block;
     }
 
-    .result-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
+    /* Chart Card */
+    .chart-card {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
     }
 
-    .result-item {
-      text-align: center;
+    .chart-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
     }
 
-    .result-item .label {
-      font-size: 0.7rem;
+    .chart-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .chart-card-subtitle {
+      font-size: 0.8rem;
       color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .chart-card-badge {
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 20px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    .result-item .value {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-top: 4px;
-    }
-
-    .result-item .value.success {
+    .chart-card-badge.optimal {
+      background: rgba(78, 204, 163, 0.2);
       color: var(--success);
     }
 
-    .result-item .value.accent {
+    .chart-card-badge.suboptimal {
+      background: rgba(233, 69, 96, 0.2);
       color: var(--accent);
     }
 
-    .summary-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    .summary-table th,
-    .summary-table td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.85rem;
-    }
-
-    .summary-table th {
+    .chart-card-badge.neutral {
+      background: rgba(160, 160, 160, 0.2);
       color: var(--text-secondary);
-      font-weight: 500;
     }
 
-    .summary-table .optimal {
-      color: var(--success);
+    /* Bar Chart */
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .bar-label {
+      width: 90px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .bar-container {
+      flex: 1;
+      height: 36px;
+      background: var(--bg-primary);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .bar-fill.empirical {
+      background: linear-gradient(90deg, var(--success), #6fe8bb);
+    }
+
+    .bar-fill.theoretical {
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    }
+
+    .bar-fill.switch-bar {
+      background: linear-gradient(90deg, var(--success), #6fe8bb);
+    }
+
+    .bar-fill.stay-bar {
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    }
+
+    .bar-value {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      white-space: nowrap;
+    }
+
+    .bar-value-outside {
+      position: absolute;
+      right: -55px;
+      font-size: 0.85rem;
       font-weight: 600;
+      color: var(--text-primary);
     }
 
-    .summary-table .suboptimal {
+    /* Big Number Display */
+    .big-number-row {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .big-number {
+      flex: 1;
+      text-align: center;
+      padding: 15px;
+      background: var(--bg-card);
+      border-radius: 12px;
+    }
+
+    .big-number-value {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .big-number-value.success {
+      color: var(--success);
+    }
+
+    .big-number-value.accent {
       color: var(--accent);
     }
 
-    .empty-state {
+    .big-number-label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 8px;
+    }
+
+    /* Comparison Chart */
+    .comparison-chart {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .comparison-item {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px;
       text-align: center;
+    }
+
+    .comparison-item-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+    }
+
+    .comparison-donut {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px;
+      position: relative;
+    }
+
+    .comparison-donut svg {
+      transform: rotate(-90deg);
+    }
+
+    .comparison-donut-bg {
+      fill: none;
+      stroke: var(--bg-primary);
+      stroke-width: 12;
+    }
+
+    .comparison-donut-fill {
+      fill: none;
+      stroke-width: 12;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .comparison-donut-fill.success {
+      stroke: var(--success);
+    }
+
+    .comparison-donut-fill.accent {
+      stroke: var(--accent);
+    }
+
+    .comparison-donut-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .comparison-donut-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .comparison-donut-label {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .comparison-meta {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* N-Door Chart */
+    .ndoor-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      height: 200px;
+      padding: 20px 10px 0;
+      gap: 15px;
+    }
+
+    .ndoor-bar-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      max-width: 80px;
+    }
+
+    .ndoor-bar {
+      width: 100%;
+      background: linear-gradient(180deg, var(--success), #3ba882);
+      border-radius: 8px 8px 0 0;
+      transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      min-height: 20px;
+    }
+
+    .ndoor-bar-value {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--success);
+      white-space: nowrap;
+    }
+
+    .ndoor-bar-label {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    /* Summary Card */
+    .summary-card {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+      border-radius: 16px;
       padding: 30px;
+      text-align: center;
+      border: 2px solid var(--success);
+    }
+
+    .summary-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .summary-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--success);
+      margin-bottom: 10px;
+    }
+
+    .summary-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Empty State */
+    .sim-empty {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .sim-empty-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .sim-empty-title {
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .sim-empty-text {
+      font-size: 0.9rem;
       color: var(--text-secondary);
     }
 
@@ -1143,48 +1419,45 @@
 
       <!-- ==================== TAB 2: SIMULATION ==================== -->
       <section id="simulation-tab" class="tab-panel">
-        <div class="sim-config-section">
-          <label for="numGames">Number of games per scenario:</label>
-          <input type="text" id="numGames" value="10,000" placeholder="10000">
+        <!-- Header with config and run button -->
+        <div class="sim-header">
+          <div class="sim-config">
+            <label for="numGames">Simulations:</label>
+            <input type="text" id="numGames" value="10,000" placeholder="10000">
+          </div>
+          <button class="sim-run-btn" id="simRunBtn">
+            <span class="play-icon">&#9658;</span>
+            <span id="simRunBtnText">Run Simulation</span>
+          </button>
         </div>
 
-        <div class="sim-menu">
-          <div class="sim-menu-item" data-scenario="1">
-            <h3>1. Standard 3-Door (Always Switch)</h3>
-            <p class="expected">Expected: 66.67%</p>
-            <p class="description">Player always switches after host reveals a goat</p>
+        <!-- Scenario Pills -->
+        <div class="sim-scenarios">
+          <button class="sim-pill" data-scenario="compare">Switch vs Stay</button>
+          <button class="sim-pill" data-scenario="shuffled">Shuffled Doors</button>
+          <button class="sim-pill" data-scenario="ndoor">N-Door Problem</button>
+          <button class="sim-pill" data-scenario="all">Complete Analysis</button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="sim-progress" id="simProgress">
+          <div class="sim-progress-header">
+            <span class="sim-progress-label" id="simProgressLabel">Running simulation...</span>
+            <span class="sim-progress-pct" id="simProgressPct">0%</span>
           </div>
-          <div class="sim-menu-item" data-scenario="2">
-            <h3>2. Standard 3-Door (Always Stay)</h3>
-            <p class="expected">Expected: 33.33%</p>
-            <p class="description">Player always stays with original choice</p>
-          </div>
-          <div class="sim-menu-item" data-scenario="3">
-            <h3>3. Shuffled Variant (Random Pick)</h3>
-            <p class="expected">Expected: 50.00%</p>
-            <p class="description">Doors shuffled after reveal, player picks randomly</p>
-          </div>
-          <div class="sim-menu-item" data-scenario="4">
-            <h3>4. N-Door Generalization (Switch)</h3>
-            <p class="expected">Expected: (n-1)/n</p>
-            <p class="description">Test with 3, 5, 10, 50, and 100 doors</p>
-          </div>
-          <div class="sim-menu-item" data-scenario="5">
-            <h3>5. Run ALL Scenarios</h3>
-            <p class="expected">Complete Analysis</p>
-            <p class="description">Execute all scenarios and show summary</p>
+          <div class="sim-progress-bar">
+            <div class="sim-progress-fill" id="simProgressFill"></div>
           </div>
         </div>
 
-        <button class="sim-run-btn" id="simRunBtn">Select a Scenario to Run</button>
+        <!-- Results Container -->
+        <div class="sim-results" id="simResults"></div>
 
-        <div class="sim-results-section">
-          <h2>Results</h2>
-          <div id="simResultsContent">
-            <div class="empty-state">
-              <p>Select a scenario above and click run to see results</p>
-            </div>
-          </div>
+        <!-- Empty State -->
+        <div class="sim-empty" id="simEmpty">
+          <div class="sim-empty-icon">&#128202;</div>
+          <div class="sim-empty-title">Ready to Simulate</div>
+          <div class="sim-empty-text">Select a scenario above and click Run to see visual results</div>
         </div>
       </section>
 
@@ -1459,26 +1732,28 @@
     }
 
     // ============================================================================
-    // TAB 2: SIMULATION
+    // TAB 2: SIMULATION - REDESIGNED
     // ============================================================================
 
-    let selectedScenario = null;
-    const simMenuItems = document.querySelectorAll('.sim-menu-item');
+    let selectedSimScenario = null;
+    const simPills = document.querySelectorAll('.sim-pill');
     const simRunBtn = document.getElementById('simRunBtn');
-    const simResultsContent = document.getElementById('simResultsContent');
+    const simRunBtnText = document.getElementById('simRunBtnText');
+    const simProgress = document.getElementById('simProgress');
+    const simResults = document.getElementById('simResults');
+    const simEmpty = document.getElementById('simEmpty');
     const numGamesInput = document.getElementById('numGames');
 
-    simMenuItems.forEach(item => {
-      item.addEventListener('click', () => {
-        simMenuItems.forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-        selectedScenario = parseInt(item.dataset.scenario);
-        simRunBtn.textContent = `Run Scenario ${selectedScenario}`;
+    simPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        simPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        selectedSimScenario = pill.dataset.scenario;
       });
     });
 
     simRunBtn.addEventListener('click', async () => {
-      if (!selectedScenario) {
+      if (!selectedSimScenario) {
         alert('Please select a scenario first');
         return;
       }
@@ -1490,19 +1765,22 @@
       }
 
       simRunBtn.disabled = true;
-      simRunBtn.textContent = 'Running...';
+      simRunBtnText.textContent = 'Running...';
+      simEmpty.style.display = 'none';
+      simResults.classList.remove('visible');
+      simProgress.classList.add('visible');
 
       try {
-        switch (selectedScenario) {
-          case 1: await runSimScenario1(numGames); break;
-          case 2: await runSimScenario2(numGames); break;
-          case 3: await runSimScenario3(numGames); break;
-          case 4: await runSimScenario4(numGames); break;
-          case 5: await runSimAllScenarios(numGames); break;
+        switch (selectedSimScenario) {
+          case 'compare': await runCompareScenario(numGames); break;
+          case 'shuffled': await runShuffledScenario(numGames); break;
+          case 'ndoor': await runNDoorScenario(numGames); break;
+          case 'all': await runAllScenarios(numGames); break;
         }
       } finally {
         simRunBtn.disabled = false;
-        simRunBtn.textContent = `Run Scenario ${selectedScenario}`;
+        simRunBtnText.textContent = 'Run Simulation';
+        simProgress.classList.remove('visible');
       }
     });
 
@@ -1518,17 +1796,21 @@
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    function updateProgress(pct, label) {
+      document.getElementById('simProgressFill').style.width = pct + '%';
+      document.getElementById('simProgressPct').textContent = Math.round(pct) + '%';
+      document.getElementById('simProgressLabel').textContent = label;
+    }
+
     function simulateStandard(numDoors, strategy) {
       const carDoor = Math.floor(Math.random() * numDoors);
       const playerPick = Math.floor(Math.random() * numDoors);
-
       let switchDoor;
       if (playerPick === carDoor) {
         switchDoor = (playerPick + 1) % numDoors;
       } else {
         switchDoor = carDoor;
       }
-
       const finalChoice = (strategy === 'switch') ? switchDoor : playerPick;
       return finalChoice === carDoor;
     }
@@ -1536,7 +1818,6 @@
     function simulateShuffled() {
       const carDoor = Math.floor(Math.random() * 3);
       const playerPick = Math.floor(Math.random() * 3);
-
       let hostOpens;
       for (let i = 0; i < 3; i++) {
         if (i !== playerPick && i !== carDoor) {
@@ -1544,215 +1825,304 @@
           break;
         }
       }
-
       const remaining = [];
       for (let i = 0; i < 3; i++) {
-        if (i !== hostOpens) {
-          remaining.push(i);
-        }
+        if (i !== hostOpens) remaining.push(i);
       }
-
       const finalChoice = remaining[Math.floor(Math.random() * 2)];
       return finalChoice === carDoor;
     }
 
-    function showSimProgress(label) {
-      simResultsContent.innerHTML = `
-        <div class="progress-container">
-          <div class="progress-label">
-            <span id="progressLabel">${label}</span>
-            <span id="progressPct">0%</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-        </div>
-        <div id="resultCards"></div>
-      `;
-    }
-
-    function updateSimProgress(pct, label = null) {
-      const fill = document.getElementById('progressFill');
-      const pctEl = document.getElementById('progressPct');
-      const labelEl = document.getElementById('progressLabel');
-      if (fill) fill.style.width = pct + '%';
-      if (pctEl) pctEl.textContent = Math.round(pct) + '%';
-      if (label && labelEl) labelEl.textContent = label;
-    }
-
-    function appendSimResultCard(title, wins, total, theoretical) {
-      const container = document.getElementById('resultCards');
-      const empirical = (wins / total * 100).toFixed(2);
-      const theoreticalPct = (theoretical * 100).toFixed(2);
-      const diff = Math.abs(parseFloat(empirical) - parseFloat(theoreticalPct)).toFixed(2);
-
-      const card = document.createElement('div');
-      card.className = 'result-card';
-      card.innerHTML = `
-        <h4>${title}</h4>
-        <div class="result-grid">
-          <div class="result-item">
-            <div class="label">Games Played</div>
-            <div class="value">${formatNumber(total)}</div>
-          </div>
-          <div class="result-item">
-            <div class="label">Wins</div>
-            <div class="value">${formatNumber(wins)}</div>
-          </div>
-          <div class="result-item">
-            <div class="label">Empirical</div>
-            <div class="value success">${empirical}%</div>
-          </div>
-          <div class="result-item">
-            <div class="label">Theoretical</div>
-            <div class="value accent">${theoreticalPct}%</div>
-          </div>
-          <div class="result-item">
-            <div class="label">Difference</div>
-            <div class="value">&plusmn;${diff}%</div>
-          </div>
-        </div>
-      `;
-      container.appendChild(card);
-    }
-
-    async function runSimulation(simulateFn, numGames, label) {
+    async function runSim(simulateFn, numGames, progressOffset = 0, progressScale = 100) {
       let wins = 0;
-      const chunkSize = Math.min(10000, Math.max(100, Math.floor(numGames / 100)));
-
+      const chunkSize = Math.min(10000, Math.max(100, Math.floor(numGames / 50)));
       for (let i = 0; i < numGames; i += chunkSize) {
         const end = Math.min(i + chunkSize, numGames);
         for (let j = i; j < end; j++) {
           if (simulateFn()) wins++;
         }
-        updateSimProgress((end / numGames) * 100, label);
+        const pct = progressOffset + (end / numGames) * progressScale;
+        updateProgress(pct, 'Simulating...');
         await sleep(0);
       }
-
       return wins;
     }
 
-    async function runSimScenario1(numGames) {
-      showSimProgress('Scenario 1: Always Switch (3 doors)');
-      const wins = await runSimulation(() => simulateStandard(3, 'switch'), numGames, 'Always Switch');
-      appendSimResultCard('Standard 3-Door - Always Switch', wins, numGames, 2/3);
+    function createDonutSVG(percent, colorClass) {
+      const radius = 48;
+      const circumference = 2 * Math.PI * radius;
+      const offset = circumference - (percent / 100) * circumference;
+      return `
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle class="comparison-donut-bg" cx="60" cy="60" r="${radius}"/>
+          <circle class="comparison-donut-fill ${colorClass}" cx="60" cy="60" r="${radius}"
+            stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/>
+        </svg>
+      `;
     }
 
-    async function runSimScenario2(numGames) {
-      showSimProgress('Scenario 2: Always Stay (3 doors)');
-      const wins = await runSimulation(() => simulateStandard(3, 'stay'), numGames, 'Always Stay');
-      appendSimResultCard('Standard 3-Door - Always Stay', wins, numGames, 1/3);
+    // Scenario: Switch vs Stay Comparison
+    async function runCompareScenario(numGames) {
+      updateProgress(0, 'Simulating Switch strategy...');
+      const switchWins = await runSim(() => simulateStandard(3, 'switch'), numGames, 0, 50);
+
+      updateProgress(50, 'Simulating Stay strategy...');
+      const stayWins = await runSim(() => simulateStandard(3, 'stay'), numGames, 50, 50);
+
+      const switchPct = (switchWins / numGames * 100).toFixed(1);
+      const stayPct = (stayWins / numGames * 100).toFixed(1);
+
+      simResults.innerHTML = `
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">Switch vs Stay: Win Rate Comparison</div>
+              <div class="chart-card-subtitle">${formatNumber(numGames)} games simulated for each strategy</div>
+            </div>
+            <span class="chart-card-badge optimal">Switch Wins</span>
+          </div>
+
+          <div class="comparison-chart">
+            <div class="comparison-item">
+              <div class="comparison-item-title">Always Switch</div>
+              <div class="comparison-donut">
+                ${createDonutSVG(switchPct, 'success')}
+                <div class="comparison-donut-center">
+                  <div class="comparison-donut-value">${switchPct}%</div>
+                  <div class="comparison-donut-label">Win Rate</div>
+                </div>
+              </div>
+              <div class="comparison-meta">${formatNumber(switchWins)} wins &bull; Expected: 66.7%</div>
+            </div>
+            <div class="comparison-item">
+              <div class="comparison-item-title">Always Stay</div>
+              <div class="comparison-donut">
+                ${createDonutSVG(stayPct, 'accent')}
+                <div class="comparison-donut-center">
+                  <div class="comparison-donut-value">${stayPct}%</div>
+                  <div class="comparison-donut-label">Win Rate</div>
+                </div>
+              </div>
+              <div class="comparison-meta">${formatNumber(stayWins)} wins &bull; Expected: 33.3%</div>
+            </div>
+          </div>
+
+          <div class="big-number-row">
+            <div class="big-number">
+              <div class="big-number-value success">2x</div>
+              <div class="big-number-label">Better odds when switching</div>
+            </div>
+            <div class="big-number">
+              <div class="big-number-value">${(switchPct / stayPct).toFixed(2)}x</div>
+              <div class="big-number-label">Actual ratio observed</div>
+            </div>
+          </div>
+        </div>
+      `;
+      simResults.classList.add('visible');
     }
 
-    async function runSimScenario3(numGames) {
-      showSimProgress('Scenario 3: Shuffled Variant');
-      const wins = await runSimulation(simulateShuffled, numGames, 'Shuffled Variant');
-      appendSimResultCard('Shuffled Variant - Random Pick', wins, numGames, 1/2);
+    // Scenario: Shuffled Doors
+    async function runShuffledScenario(numGames) {
+      updateProgress(0, 'Simulating shuffled variant...');
+      const shuffledWins = await runSim(simulateShuffled, numGames, 0, 50);
+
+      updateProgress(50, 'Simulating standard (switch)...');
+      const standardWins = await runSim(() => simulateStandard(3, 'switch'), numGames, 50, 50);
+
+      const shuffledPct = (shuffledWins / numGames * 100).toFixed(1);
+      const standardPct = (standardWins / numGames * 100).toFixed(1);
+
+      simResults.innerHTML = `
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">Shuffled Doors: Information Matters</div>
+              <div class="chart-card-subtitle">What happens when you lose track of which door was yours?</div>
+            </div>
+            <span class="chart-card-badge neutral">50/50</span>
+          </div>
+
+          <div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label">Shuffled</div>
+              <div class="bar-container">
+                <div class="bar-fill theoretical" style="width: ${shuffledPct}%;">
+                  <span class="bar-value">${shuffledPct}%</span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Standard</div>
+              <div class="bar-container">
+                <div class="bar-fill empirical" style="width: ${standardPct}%;">
+                  <span class="bar-value">${standardPct}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="big-number-row">
+            <div class="big-number">
+              <div class="big-number-value accent">${shuffledPct}%</div>
+              <div class="big-number-label">Shuffled (Expected: 50%)</div>
+            </div>
+            <div class="big-number">
+              <div class="big-number-value success">${standardPct}%</div>
+              <div class="big-number-label">Standard Switch (Expected: 66.7%)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-card" style="border-color: var(--accent);">
+          <div class="summary-icon">&#128275;</div>
+          <div class="summary-title" style="color: var(--accent);">Information is Power</div>
+          <div class="summary-text">
+            When the doors are shuffled, you lose the information advantage.
+            You can no longer tell which door was your original pick, reducing it to a true 50/50 coin flip.
+          </div>
+        </div>
+      `;
+      simResults.classList.add('visible');
     }
 
-    async function runSimScenario4(numGames) {
-      showSimProgress('Scenario 4: N-Door Generalization');
+    // Scenario: N-Door Problem
+    async function runNDoorScenario(numGames) {
       const doorCounts = [3, 5, 10, 50, 100];
-      const totalRuns = doorCounts.length;
+      const results = [];
 
-      for (let idx = 0; idx < doorCounts.length; idx++) {
-        const n = doorCounts[idx];
-        updateSimProgress((idx / totalRuns) * 100, `Testing n=${n} doors`);
-
-        let wins = 0;
-        const chunkSize = Math.min(10000, Math.max(100, Math.floor(numGames / 50)));
-
-        for (let i = 0; i < numGames; i += chunkSize) {
-          const end = Math.min(i + chunkSize, numGames);
-          for (let j = i; j < end; j++) {
-            if (simulateStandard(n, 'switch')) wins++;
-          }
-          const subProgress = (idx + (end / numGames)) / totalRuns * 100;
-          updateSimProgress(subProgress, `Testing n=${n} doors`);
-          await sleep(0);
-        }
-
-        appendSimResultCard(`N=${n} Doors - Always Switch`, wins, numGames, (n - 1) / n);
-      }
-      updateSimProgress(100, 'Complete');
-    }
-
-    async function runSimAllScenarios(numGames) {
-      showSimProgress('Running all scenarios...');
-
-      updateSimProgress(0, 'Scenario 1: Always Switch');
-      const wins1 = await runSimulation(() => simulateStandard(3, 'switch'), numGames, 'Scenario 1: Always Switch');
-      appendSimResultCard('Scenario 1: Always Switch (3 doors)', wins1, numGames, 2/3);
-
-      updateSimProgress(20, 'Scenario 2: Always Stay');
-      const wins2 = await runSimulation(() => simulateStandard(3, 'stay'), numGames, 'Scenario 2: Always Stay');
-      appendSimResultCard('Scenario 2: Always Stay (3 doors)', wins2, numGames, 1/3);
-
-      updateSimProgress(40, 'Scenario 3: Shuffled Variant');
-      const wins3 = await runSimulation(simulateShuffled, numGames, 'Scenario 3: Shuffled Variant');
-      appendSimResultCard('Scenario 3: Shuffled Variant', wins3, numGames, 1/2);
-
-      const doorCounts = [3, 5, 10, 50, 100];
-      for (let idx = 0; idx < doorCounts.length; idx++) {
-        const n = doorCounts[idx];
-        const baseProgress = 60 + (idx / doorCounts.length) * 35;
-        updateSimProgress(baseProgress, `Scenario 4: n=${n} doors`);
+      for (let i = 0; i < doorCounts.length; i++) {
+        const n = doorCounts[i];
+        updateProgress((i / doorCounts.length) * 100, `Testing ${n} doors...`);
 
         let wins = 0;
         const chunkSize = Math.min(5000, Math.max(100, Math.floor(numGames / 20)));
-        for (let i = 0; i < numGames; i += chunkSize) {
-          const end = Math.min(i + chunkSize, numGames);
-          for (let j = i; j < end; j++) {
+        for (let j = 0; j < numGames; j += chunkSize) {
+          const end = Math.min(j + chunkSize, numGames);
+          for (let k = j; k < end; k++) {
             if (simulateStandard(n, 'switch')) wins++;
           }
           await sleep(0);
         }
-        appendSimResultCard(`Scenario 4: n=${n} Doors (Switch)`, wins, numGames, (n - 1) / n);
+        results.push({ n, wins, pct: (wins / numGames * 100).toFixed(1), expected: ((n-1)/n * 100).toFixed(1) });
       }
 
-      updateSimProgress(100, 'All scenarios complete');
+      const maxPct = 100;
+      const barsHTML = results.map(r => `
+        <div class="ndoor-bar-wrapper">
+          <div class="ndoor-bar" style="height: ${(r.pct / maxPct) * 160}px;">
+            <span class="ndoor-bar-value">${r.pct}%</span>
+          </div>
+          <div class="ndoor-bar-label">${r.n} doors</div>
+        </div>
+      `).join('');
 
-      const container = document.getElementById('resultCards');
-      const summary = document.createElement('div');
-      summary.className = 'result-card';
-      summary.innerHTML = `
-        <h4>Summary</h4>
-        <table class="summary-table">
-          <thead>
-            <tr>
-              <th>Scenario</th>
-              <th>Theoretical</th>
-              <th>Strategy</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Standard 3-door (switch)</td>
-              <td>66.67%</td>
-              <td class="optimal">OPTIMAL</td>
-            </tr>
-            <tr>
-              <td>Standard 3-door (stay)</td>
-              <td>33.33%</td>
-              <td class="suboptimal">Suboptimal</td>
-            </tr>
-            <tr>
-              <td>Shuffled variant</td>
-              <td>50.00%</td>
-              <td>No advantage</td>
-            </tr>
-            <tr>
-              <td>N-door (switch)</td>
-              <td>(n-1)/n</td>
-              <td class="optimal">OPTIMAL</td>
-            </tr>
-          </tbody>
-        </table>
-        <p style="margin-top: 15px; text-align: center; color: var(--success); font-weight: 600;">
-          Conclusion: Always switch!
-        </p>
+      simResults.innerHTML = `
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">N-Door Generalization: Always Switch</div>
+              <div class="chart-card-subtitle">Win rate approaches 100% as doors increase (formula: (n-1)/n)</div>
+            </div>
+            <span class="chart-card-badge optimal">Optimal</span>
+          </div>
+
+          <div class="ndoor-chart">
+            ${barsHTML}
+          </div>
+
+          <div class="big-number-row">
+            <div class="big-number">
+              <div class="big-number-value success">${results[results.length-1].pct}%</div>
+              <div class="big-number-label">Win rate with 100 doors</div>
+            </div>
+            <div class="big-number">
+              <div class="big-number-value">(n-1)/n</div>
+              <div class="big-number-label">Mathematical formula</div>
+            </div>
+          </div>
+        </div>
       `;
-      container.appendChild(summary);
+      simResults.classList.add('visible');
+    }
+
+    // Scenario: Complete Analysis
+    async function runAllScenarios(numGames) {
+      // Switch vs Stay
+      updateProgress(0, 'Simulating Switch strategy...');
+      const switchWins = await runSim(() => simulateStandard(3, 'switch'), numGames, 0, 25);
+
+      updateProgress(25, 'Simulating Stay strategy...');
+      const stayWins = await runSim(() => simulateStandard(3, 'stay'), numGames, 25, 25);
+
+      // Shuffled
+      updateProgress(50, 'Simulating Shuffled variant...');
+      const shuffledWins = await runSim(simulateShuffled, numGames, 50, 25);
+
+      // N-door (100 doors only for complete analysis)
+      updateProgress(75, 'Simulating 100-door variant...');
+      const door100Wins = await runSim(() => simulateStandard(100, 'switch'), numGames, 75, 25);
+
+      const switchPct = (switchWins / numGames * 100).toFixed(1);
+      const stayPct = (stayWins / numGames * 100).toFixed(1);
+      const shuffledPct = (shuffledWins / numGames * 100).toFixed(1);
+      const door100Pct = (door100Wins / numGames * 100).toFixed(1);
+
+      simResults.innerHTML = `
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">Complete Analysis: All Scenarios</div>
+              <div class="chart-card-subtitle">${formatNumber(numGames)} simulations per scenario</div>
+            </div>
+          </div>
+
+          <div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label">Switch (3)</div>
+              <div class="bar-container">
+                <div class="bar-fill switch-bar" style="width: ${switchPct}%;">
+                  <span class="bar-value">${switchPct}%</span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Stay (3)</div>
+              <div class="bar-container">
+                <div class="bar-fill stay-bar" style="width: ${stayPct}%;">
+                  <span class="bar-value">${stayPct}%</span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Shuffled</div>
+              <div class="bar-container">
+                <div class="bar-fill theoretical" style="width: ${shuffledPct}%;">
+                  <span class="bar-value">${shuffledPct}%</span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">100 Doors</div>
+              <div class="bar-container">
+                <div class="bar-fill empirical" style="width: ${door100Pct}%;">
+                  <span class="bar-value">${door100Pct}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-icon">&#127942;</div>
+          <div class="summary-title">Conclusion: Always Switch!</div>
+          <div class="summary-text">
+            The simulation confirms the math: switching doubles your chances in the standard 3-door game.
+            With more doors, the advantage becomes even more dramatic&mdash;up to ${door100Pct}% with 100 doors!
+          </div>
+        </div>
+      `;
+      simResults.classList.add('visible');
     }
 
     // ============================================================================
